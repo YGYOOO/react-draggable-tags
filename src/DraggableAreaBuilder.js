@@ -72,6 +72,7 @@ export default function buildDraggableArea({areaId = Math.random(), isInAnotherA
       // let shouldCheck = true;
     
       const dragMouseDown = (e) => {
+        e.stopPropagation();
         rect = document.getElementById(areaId).getBoundingClientRect();
 
         e = e || window.event;
@@ -87,6 +88,7 @@ export default function buildDraggableArea({areaId = Math.random(), isInAnotherA
       }
     
       const elementDrag = (e) => {
+        e.stopPropagation();
         // if (!shouldCheck) return;
   
         // tag跟随鼠标移动

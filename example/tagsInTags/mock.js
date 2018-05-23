@@ -1,18 +1,28 @@
 import React from 'react';
+import Tag from './Tag';
 
 export default {
   leftTags: [{
-    id: 'apple',
-    content: <div>123</div>,
+    id: '1',
+    content: <Tag />,
   },{
-    id: 'watermelon',
-    content: <div>123</div>,
+    id: '2',
+    content: <Tag />,
+  },{
+    id: '3',
+    content: <Tag />,
+  },{
+    id: '4',
+    content: <Tag />,
   }],
   rightTags: [{
-    id: 'tomato',
-    content: <div>123</div>,
+    id: '10',
+    content: <Tag />,
   },{
-    id: 'cucumber',
-    content: <div>123</div>,
+    id: '11',
+    content: <Tag />,
+  },{
+    id: '12',
+    content: <Tag />,
   }],
 }

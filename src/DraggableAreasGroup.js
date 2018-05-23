@@ -2,6 +2,7 @@ import React from 'react';
 import { fromJS, List, is } from 'immutable';
 import buildDraggableArea from './DraggableAreaBuilder';
 
+
 let i = -1;
 
 export default class DraggableTagsGroup {

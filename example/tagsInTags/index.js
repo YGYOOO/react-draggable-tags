@@ -36,11 +36,10 @@ class Main extends Component {
             tags={ this.state.leftTags}
             build={tag => (
               <div className="tag">
-                {tag.id}
+                {tag.content}
               </div>
             )}
             onChange={(leftTags) => this.setState({leftTags})}
-            style={{height: '231px'}}
           />
         </div>
         <div className="square right">
@@ -55,11 +54,10 @@ class Main extends Component {
                     srcSet={`${deleteBtn2x} 2x`}
                     onClick={() => this.handleClickDelete(tag.id)}
                   />
-                  {tag.id}
+                  {tag.content}
                 </div>
               )
             }}
-            style={{height: '231px'}}
             onChange={(rightTags) => this.setState({rightTags})}
           />
         </div>
