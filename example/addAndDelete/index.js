@@ -1,0 +1,68 @@
+import React, {Component} from 'react';
+import ReactDOM from "react-dom";
+import { fromJS } from 'immutable';
+
+import {DraggableArea, DraggableAreasGroup} from '../../src/index';
+import deleteBtn from '../imgs/delete.png';
+import deleteBtn2x from '../imgs/delete@2x.png';
+import styles from './style.less';
+
+import mock from './mock.js';
+
+class Main extends Component {
+  constructor() {
+    super();
+    this.state = {
+      tags: mock.tags,
+    };
+  }
+
+  handleClickDelete(i) {
+    let tags = this.state.tags.slice();
+    tags.splice(i, 1);
+    this.setState({tags})
+  }
+
+  handleClickAdd() {
+    const tags = this.state.tags.slice();
+    tags.push({id: this.input.value , name: this.input.value});
+    this.setState({tags});
+    this.input.value = '';
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="main">
+          <DraggableArea
+            tags={this.state.tags}
+            build={(tag, i) => {
+              return (
+                <div className="tag">
+                  <img
+                    className="delete"
+                    src={deleteBtn}
+                    srcSet={`${deleteBtn2x} 2x`}  
+                    onClick={() => this.handleClickDelete(i)}
+                  />
+                  {tag.name}
+                </div>
+              )
+            }}
+            style={{height: '231px'}}
+            onChange={(tags) => this.setState({tags})}
+          />
+        </div>
+        <div className="inputs">
+          <input ref={r => this.input = r} />
+          <button onClick={this.handleClickAdd.bind(this)}>Add</button>
+        </div>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Main />,
+  document.getElementById('root')
+);

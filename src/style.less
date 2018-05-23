@@ -1,0 +1,27 @@
+.DraggableTags {
+  position: relative;
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+.DraggableTags-tag {
+  float: left;
+  position: relative;
+  color: transparent;
+  cursor: move;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.DraggableTags-tag-drag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
