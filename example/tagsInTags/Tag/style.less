@@ -1,10 +1,15 @@
 .inner {
-  overflow: hidden;
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
   .inner-square {
     border: 1px solid #E9E9E9;
     border-radius: 4px;
     width: 135px;
     padding: 5px;
+    margin: 5px;
   }
   .inner-left {
     float: left;

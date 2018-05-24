@@ -12,5 +12,5 @@
 import buildDraggableArea from './DraggableAreaBuilder';
 import DraggableAreasGroup from './DraggableAreasGroup';
 
-const DraggableArea = buildDraggableArea({areaId: Math.random()});
+const DraggableArea = buildDraggableArea();
 export {DraggableArea, DraggableAreasGroup};

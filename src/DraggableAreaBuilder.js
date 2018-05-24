@@ -5,7 +5,7 @@ import { fromJS, List, is } from 'immutable';
 import styles from './style.less';
 
 
-export default function buildDraggableArea({areaId = Math.random(), isInAnotherArea = () => {}, passAddFunc = () => {}}) {
+export default function buildDraggableArea({isInAnotherArea = () => {}, passAddFunc = () => {}} = {}) {
   return class DraggableArea extends React.Component {
     constructor() {
       super();
@@ -18,11 +18,12 @@ export default function buildDraggableArea({areaId = Math.random(), isInAnotherA
       this.positions = [];
       this.rect = {};
 
-      passAddFunc(this.addTag.bind(this));
     }
   
     componentDidMount() {
       this.setTags(List(this.props.tags));
+
+      passAddFunc(this.container, this.addTag.bind(this));
     }
   
     componentWillReceiveProps({tags}) {
@@ -73,8 +74,7 @@ export default function buildDraggableArea({areaId = Math.random(), isInAnotherA
     
       const dragMouseDown = (e) => {
         e.stopPropagation();
-        rect = document.getElementById(areaId).getBoundingClientRect();
-
+        rect = this.container.getBoundingClientRect();
         e = e || window.event;
         prevX = e.clientX;
         prevY = e.clientY;
@@ -234,7 +234,7 @@ export default function buildDraggableArea({areaId = Math.random(), isInAnotherA
     render() {
       const {build, style, tagStyle} = this.props;
       return (
-        <div id={areaId} className="DraggableTags" style={style}>
+        <div ref={r => this.container = r} className="DraggableTags" style={style}>
           {
             this.state.tags.toJS().map((tag) => (
               <div

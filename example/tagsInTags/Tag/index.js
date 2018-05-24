@@ -10,6 +10,9 @@ import styles from './style.less';
 
 import mock from './mock.js';
 
+const group = new DraggableAreasGroup();
+const DraggableArea1 = group.addArea();
+const DraggableArea2 = group.addArea();
 
 const getRandomTags = function(tags) {
   return tags.sort((a,b) => Math.random() - 0.5).slice(0, 1 + Math.floor(Math.random() * 3));
@@ -23,10 +26,6 @@ export default class Main extends Component {
       leftTags: getRandomTags(mock.leftTags),
       rightTags: getRandomTags(mock.rightTags),
     };
-
-    const group = new DraggableAreasGroup();
-    this.DraggableArea1 = group.addArea();
-    this.DraggableArea2 = group.addArea();
   }
 
   handleClickDelete(id) {
@@ -38,7 +37,7 @@ export default class Main extends Component {
     return (
       <div className="inner">
         <div className="inner-square inner-left">
-          <this.DraggableArea1
+          <DraggableArea1
             tags={ this.state.leftTags}
             build={tag => (
               <div className="inner-tag">
@@ -51,7 +50,7 @@ export default class Main extends Component {
           />
         </div>
         <div className="inner-square inner-right">
-          <this.DraggableArea2
+          <DraggableArea2
             tags={this.state.rightTags}
             build={(tag) => {
               return (
@@ -60,7 +59,15 @@ export default class Main extends Component {
                     className="inner-delete"
                     src={deleteBtn}
                     srcSet={`${deleteBtn2x} 2x`}
-                    onClick={() => this.handleClickDelete(tag.id)}
+                    onMouseDown={(e) => {
+                      this.clientX = e.clientX;
+                      this.clientY = e.clientY;
+                    }}
+                    onMouseUp={(e) => {
+                      if (this.clientX - e.clientX < 2 & this.clientY - e.clientY < 2) {
+                        this.handleClickDelete(i);
+                      }
+                    }}
                   />
                   {tag.id}
                 </div>
@@ -75,8 +82,3 @@ export default class Main extends Component {
     );
   }
 }
-
-// ReactDOM.render(
-//   <Main />,
-//   document.getElementById('root')
-// );
