@@ -17,51 +17,31 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       this.tagEles = {};
       this.positions = [];
       this.rect = {};
-
     }
-  
+
     componentDidMount() {
-      this.setTags(List(this.props.tags));
+      if (this.props.initailTags) {
+        this.setTags(List(this.props.initailTags));
+      } else {
+        this.setTags(List(this.props.tags));
+      }
 
       passAddFunc(this.container, this.addTag.bind(this));
+      this.props.getAddTagFunc && this.props.getAddTagFunc(this.addTag.bind(this));
     }
   
     componentWillReceiveProps({tags}) {
+      if (!tags) return;
       if (tags.length !== this.props.tags.length || tags.some((tag, i) => tag.id !== this.props.tags[i].id)) {
         this.setTags(List(tags));
       }
     }
   
-    setTags(tags, callback) {
-      this.setState({tags: tags}, () => {
-        callback && callback();
-        this.positions = [];
-        this.state.tags.forEach((t, i) => {
-          const draggableTag = ReactDOM.findDOMNode(this.draggableTagEles[t.id]);
-          const tag = ReactDOM.findDOMNode(this.tagEles[t.id]);
-          this.positions.push({
-            id: t.id,
-            top: tag.offsetTop, 
-            left: tag.offsetLeft,
-            bottom: tag.offsetTop + tag.offsetHeight,
-            right: tag.offsetLeft + tag.offsetWidth,
-          });
-          this.dragElement(draggableTag, t.id, tag);
-        });
-      });
-    }
-  
     shouldComponentUpdate(nextProps, {tags}) {
-      if (nextProps.tags !== this.props.tags) return true;
+      // if (nextProps.tags && nextProps.tags !== this.props.tags) return true;
       return tags.size !== this.state.tags.size || this.state.tags.some((tag, i) => tag.id !== tags.get(i).id);
     }
 
-    addTag(tag) {
-      this.setTags(this.state.tags.push(tag), () => {
-        this.props.onChange && this.props.onChange(this.state.tags.toJS());
-      });
-    }
-  
     dragElement(elmnt, id, parent) {
       let prevX = 0, prevY = 0;
       let rect = {};
@@ -73,7 +53,9 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       // let shouldCheck = true;
     
       const dragMouseDown = (e) => {
-        e.stopPropagation();
+        if (window.dragMouseDown) return;
+        window.dragMouseDown = true;
+
         rect = this.container.getBoundingClientRect();
         e = e || window.event;
         prevX = e.clientX;
@@ -88,7 +70,6 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       }
     
       const elementDrag = (e) => {
-        e.stopPropagation();
         // if (!shouldCheck) return;
   
         // tag跟随鼠标移动
@@ -166,14 +147,14 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
                 index = i + 1;
               }
               this.positions = [];
-              const prevBaseTop = ReactDOM.findDOMNode(this.tagEles[cur.id]).offsetTop;
-              const prevBaseLeft = ReactDOM.findDOMNode(this.tagEles[cur.id]).offsetLeft;
+              const prevBaseTop = this.tagEles[cur.id].offsetTop;
+              const prevBaseLeft = this.tagEles[cur.id].offsetLeft;
   
               this.setState({tags}, () => {
                 let curBaseTop;
                 let curBaseLeft;
                 tags.forEach((t, i) => {
-                  const tag = ReactDOM.findDOMNode(this.tagEles[t.id]);
+                  const tag = this.tagEles[t.id];
                   if (i === index) {
                     curBaseLeft = tag.offsetLeft;
                     curBaseTop= tag.offsetTop;
@@ -206,6 +187,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       }
   
       const closeDragElement = () => {
+        window.dragMouseDown = false;
         document.onmouseup = null;
         document.onmousemove = null;
 
@@ -230,6 +212,38 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
   
       elmnt.onmousedown = dragMouseDown;
     }
+
+    setTags(tags, callback) {
+      this.setState({tags: tags}, () => {
+        callback && callback();
+        this.positions = [];
+        this.state.tags.forEach((t, i) => {
+          const draggableTag = this.draggableTagEles[t.id];
+          const tag = this.tagEles[t.id];
+          this.positions.push({
+            id: t.id,
+            top: tag.offsetTop, 
+            left: tag.offsetLeft,
+            bottom: tag.offsetTop + tag.offsetHeight,
+            right: tag.offsetLeft + tag.offsetWidth,
+          });
+          this.dragElement(draggableTag, t.id, tag);
+        });
+      });
+    }
+
+    addTag(tag) {
+      this.setTags(this.state.tags.push(tag), () => {
+        this.props.onChange && this.props.onChange(this.state.tags.toJS());
+      });
+    }
+
+    buildDeleteTagFunc(tag) {
+      return () => {
+        const tags = this.state.tags.filter(t => tag.id !== t.id);
+        this.setTags(tags);
+      }
+    }
   
     render() {
       const {build, style, tagStyle} = this.props;
@@ -246,10 +260,10 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
                 style={{margin: '5px', ...tagStyle}}
               >
                 <div className="DraggableTags-tag-drag" ref={(target) => this.draggableTagEles[tag.id] = target}>
-                  {build(tag)}
+                  {build({tag, deleteThis: this.buildDeleteTagFunc(tag)})}
                 </div>
                 <div style={{opacity: 0}}>
-                  {build(tag)}
+                  {build({tag, deleteThis: this.buildDeleteTagFunc(tag)})}
                 </div>
               </div>
             ))

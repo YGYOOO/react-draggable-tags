@@ -19,40 +19,25 @@ const getRandomTags = function(tags) {
 }
 
 export default class Main extends Component {
-  constructor() {
-    super();
-    this.state = {
-      // random tags
-      leftTags: getRandomTags(mock.leftTags),
-      rightTags: getRandomTags(mock.rightTags),
-    };
-  }
-
-  handleClickDelete(id) {
-    let rightTags = this.state.rightTags.filter(tags => tags.id !== id);
-    this.setState({rightTags})
-  }
-
   render() {
     return (
-      <div className="inner">
+      <div className="InnerTag">
         <div className="inner-square inner-left">
           <DraggableArea1
-            tags={ this.state.leftTags}
-            build={tag => (
+            tags={getRandomTags(mock.leftTags)}
+            build={({tag}) => (
               <div className="inner-tag">
                 {tag.id}
               </div>
             )}
-            onChange={(leftTags) => this.setState({leftTags})}
             style={{height: '55px'}}
             tagStyle={{margin: '3px'}}
           />
         </div>
         <div className="inner-square inner-right">
           <DraggableArea2
-            tags={this.state.rightTags}
-            build={(tag) => {
+            tags={getRandomTags(mock.rightTags)}
+            build={({tag, deleteThis}) => {
               return (
                 <div className="inner-tag">
                   <img
@@ -65,7 +50,7 @@ export default class Main extends Component {
                     }}
                     onMouseUp={(e) => {
                       if (this.clientX - e.clientX < 2 & this.clientY - e.clientY < 2) {
-                        this.handleClickDelete(i);
+                        deleteThis();
                       }
                     }}
                   />
@@ -75,7 +60,6 @@ export default class Main extends Component {
             }}
             style={{height: '55px'}}
             tagStyle={{margin: '3px'}}
-            onChange={(rightTags) => this.setState({rightTags})}
           />
         </div>
       </div>

@@ -8,38 +8,47 @@ import styles from './style.less';
 
 import mock from './mock.js';
 
-export default class AddAndDelete extends Component {
+export default class ControlledTags extends Component {
   constructor() {
     super();
-    this.handleClickAdd = this.handleClickAdd.bind(this);
+    this.state = {
+      tags: mock.tags,
+    };
+  }
+
+  handleClickDelete(tag) {
+    const tags = this.state.tags.filter(t => tag.id !== t.id);
+    this.setState({tags})
   }
 
   handleClickAdd() {
-    this.addTag({id: this.input.value , name: this.input.value});
+    const tags = this.state.tags.slice();
+    tags.push({id: this.input.value , name: this.input.value});
+    this.setState({tags});
     this.input.value = '';
   }
 
   render() {
     return (
-      <div className="AddAndDelete">
+      <div className="ControlledTags">
         <div className="main">
           <DraggableArea
-            initailTags={mock.tags}
-            build={({tag, deleteThis}) => {
+            tags={this.state.tags}
+            build={({tag}) => {
               return (
                 <div className="tag">
                   <img
                     className="delete"
                     src={deleteBtn}
                     srcSet={`${deleteBtn2x} 2x`}  
-                    onClick={deleteThis}
+                    onClick={() => this.handleClickDelete(tag)}
                   />
                   {tag.name}
                 </div>
               )
             }}
-            getAddTagFunc={addTag => this.addTag = addTag}
             style={{height: '231px'}}
+            onChange={(tags) => this.setState({tags})}
           />
         </div>
         <div className="inputs">
