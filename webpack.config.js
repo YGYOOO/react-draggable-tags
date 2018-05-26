@@ -1,5 +1,5 @@
 const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 // module.exports = {
 //   entry: './src/index.js',
@@ -41,14 +41,6 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 //       }
 //     ]
 //   },
-//   plugins: [
-//     new UglifyJsPlugin({
-//       sourceMap: true,
-//       uglifyOptions: {
-//         safari10: true
-//       }
-//     }),  
-//   ]
 // };
 
 
@@ -91,14 +83,13 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new UglifyJsPlugin({
-      sourceMap: true,
-      uglifyOptions: {
-        safari10: true
-      }
-    }),
-  ],
+  // plugins: [
+  //   new UglifyJsPlugin({
+  //     uglifyOptions: {
+  //       safari10: true,
+  //     }
+  //   }),
+  // ],
   devServer: {
     contentBase: path.join(__dirname, "example"),
     compress: true,

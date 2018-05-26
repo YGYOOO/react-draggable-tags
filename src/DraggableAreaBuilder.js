@@ -90,8 +90,9 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
         let ctop = baseCenterTop + t;
         let cleft = baseCenterLeft + l;
   
+        let i; // safari10 bug
         // 依次检查当前中心坐标是否在任何两个tag间的空隙中、行首、行尾、队头、队尾
-        for (let i = 0; i < this.positions.length - 1; i++) {
+        for (i = 0; i < this.positions.length - 1; i++) {
           // 不检查当前tag的左邻或右邻空隙
           if ((index !== i || (index === this.positions.length - 2 && i === this.positions.length - 2)) && !(index - 1 === i && i !== 0)) {
             const p1 = this.positions[i];
