@@ -1,5 +1,5 @@
 const path = require('path');
-const MinifyPlugin = require("babel-minify-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 // module.exports = {
 //   entry: './src/index.js',
@@ -42,7 +42,12 @@ const MinifyPlugin = require("babel-minify-webpack-plugin");
 //     ]
 //   },
 //   plugins: [
-//     new MinifyPlugin(minifyOpts, pluginOpts)
+//     new UglifyJsPlugin({
+//       sourceMap: true,
+//       uglifyOptions: {
+//         safari10: true
+//       }
+//     }),  
 //   ]
 // };
 
@@ -87,7 +92,12 @@ module.exports = {
     ]
   },
   plugins: [
-    new MinifyPlugin()
+    new UglifyJsPlugin({
+      sourceMap: true,
+      uglifyOptions: {
+        safari10: true
+      }
+    }),
   ],
   devServer: {
     contentBase: path.join(__dirname, "example"),
