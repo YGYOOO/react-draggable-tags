@@ -12,10 +12,10 @@ class Main extends Component {
     return (
       <div>
         <Simple />
-        <AddAndDelete />
+        {/* <AddAndDelete />
         <CrossArea />
         <ControlledTags />
-        <TagsInTags />
+        <TagsInTags /> */}
       </div>
     );
   }
