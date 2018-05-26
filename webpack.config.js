@@ -1,4 +1,5 @@
 const path = require('path');
+const MinifyPlugin = require("babel-minify-webpack-plugin");
 
 // module.exports = {
 //   entry: './src/index.js',
@@ -39,7 +40,10 @@ const path = require('path');
 //         ]
 //       }
 //     ]
-//   }
+//   },
+//   plugins: [
+//     new MinifyPlugin(minifyOpts, pluginOpts)
+//   ]
 // };
 
 
@@ -82,6 +86,9 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new MinifyPlugin()
+  ],
   devServer: {
     contentBase: path.join(__dirname, "example"),
     compress: true,
