@@ -45,6 +45,7 @@
   ],
   "description": "",
   "files": [
-    "lib"
+    "lib",
+    "README.md"
   ]
 }

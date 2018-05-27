@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
-    "react": "^15.4.1",
+    "react": "^16.4.0",
     "react-dom": "^15.4.1",
     "react-draggable-tags": "^0.1.5",
     "react-prism": "^4.3.2"
