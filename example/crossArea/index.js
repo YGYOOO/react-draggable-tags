@@ -25,7 +25,7 @@ export default class CrossArea extends Component {
                 {tag.id}
               </div>
             )}
-            style={{height: '231px'}}
+            onChange={(tags) => console.log(tags)}
           />
         </div>
         <div className="square right">
@@ -44,7 +44,7 @@ export default class CrossArea extends Component {
                 </div>
               )
             }}
-            style={{height: '231px'}}
+            onChange={(tags) => console.log(tags)}
           />
         </div>
       </div>

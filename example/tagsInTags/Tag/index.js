@@ -30,8 +30,6 @@ export default class Main extends Component {
                 {tag.id}
               </div>
             )}
-            style={{height: '55px'}}
-            tagStyle={{margin: '3px'}}
           />
         </div>
         <div className="inner-square inner-right">
@@ -58,8 +56,6 @@ export default class Main extends Component {
                 </div>
               )
             }}
-            style={{height: '55px'}}
-            tagStyle={{margin: '3px'}}
           />
         </div>
       </div>

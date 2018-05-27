@@ -37,11 +37,6 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       }
     }
   
-    shouldComponentUpdate(nextProps, {tags}) {
-      // if (nextProps.tags && nextProps.tags !== this.props.tags) return true;
-      return tags.size !== this.state.tags.size || this.state.tags.some((tag, i) => tag.id !== tags.get(i).id);
-    }
-
     dragElement(elmnt, id, parent) {
       let prevX = 0, prevY = 0;
       let rect = {};
@@ -60,7 +55,13 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
         e = e || window.event;
         prevX = e.clientX;
         prevY = e.clientY;
-        elmnt.style.zIndex = 1000;
+        elmnt.style.zIndex = 2;
+        window.parentDragTag = elmnt.parentElement;
+        while (window.parentDragTag && !window.parentDragTag.classList.contains('DraggableTags-tag-drag')) {
+          window.parentDragTag = window.parentDragTag.parentElement;
+        }
+        if (window.parentDragTag) window.parentDragTag.style.zIndex = 2;
+    
         document.onmouseup = closeDragElement;
         document.onmousemove = elementDrag;
   
@@ -191,6 +192,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
         window.dragMouseDown = false;
         document.onmouseup = null;
         document.onmousemove = null;
+        if (window.parentDragTag) window.parentDragTag.style.zIndex = 1;
 
         let eRect = elmnt.getBoundingClientRect();
         let x = eRect.left + eRect.width / 2;
@@ -215,7 +217,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
     }
 
     setTags(tags, callback) {
-      this.setState({tags: tags}, () => {
+      this.setState({tags}, () => {
         callback && callback();
         this.positions = [];
         this.state.tags.forEach((t, i) => {
@@ -234,6 +236,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
     }
 
     addTag(tag) {
+      console.log(0)
       this.setTags(this.state.tags.push(tag), () => {
         this.props.onChange && this.props.onChange(this.state.tags.toJS());
       });
@@ -247,9 +250,9 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
     }
   
     render() {
-      const {build, style, tagStyle} = this.props;
+      const {build, style, className, tagMargin = '5px', tagStyle} = this.props;
       return (
-        <div ref={r => this.container = r} className="DraggableTags" style={style}>
+        <div ref={r => this.container = r} className={`DraggableTags ${className}`} style={style}>
           {
             this.state.tags.toJS().map((tag) => (
               <div
@@ -258,7 +261,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
                 ref={(target) => {
                   this.tagEles[tag.id] = target;
                 }}
-                style={{margin: '5px', ...tagStyle}}
+                style={tagStyle}
               >
                 <div className="DraggableTags-tag-drag" ref={(target) => this.draggableTagEles[tag.id] = target}>
                   {build({tag, deleteThis: this.buildDeleteTagFunc(tag)})}

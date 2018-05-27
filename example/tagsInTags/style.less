@@ -1,34 +1,43 @@
 .TagsInTags {
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
   .square {
     border: 1px solid #E9E9E9;
     border-radius: 4px;
-    width: 380px;
+    width: 345px;
     padding: 5px;
   }
   .left {
     float: left;
     margin-right: 10px;
     .tag {
+      margin: 5px;
+      position: relative;
       width: 155px;
       font-size: 13px;
       border: 1px dashed #979797;
       border-radius: 4px;
-      padding: 8px 8px;
+      padding: 4px;
     }
   }
   .right {
     float: left;
     .tag {
+      margin: 5px;
+      position: relative;
       width: 155px;
       font-size: 13px;
       border: 1px dashed rgb(217, 196, 6);
       border-radius: 4px;
-      padding: 8px 8px;
+      padding: 4px;
     }
     .delete {
       position: absolute;
-      top: 0;
-      right: 0;
+      top: -1px;
+      right: -1px;
       width: 16px;
       height: 16px;
       cursor: pointer;

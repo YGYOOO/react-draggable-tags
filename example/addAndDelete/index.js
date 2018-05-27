@@ -39,7 +39,7 @@ export default class AddAndDelete extends Component {
               )
             }}
             getAddTagFunc={addTag => this.addTag = addTag}
-            style={{height: '231px'}}
+            onChange={(tags) => console.log(tags)}
           />
         </div>
         <div className="inputs">

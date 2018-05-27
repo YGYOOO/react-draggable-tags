@@ -14,6 +14,19 @@ export default class ControlledTags extends Component {
     this.state = {
       tags: mock.tags,
     };
+    this.onChange = this.onChange.bind(this);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
+    this.handleClickAdd = this.handleClickAdd.bind(this);
+  }
+
+  onChange(tags) {
+    tags = tags.map((t, i) => {
+      if (this.state.tags[i].id !== t.id) {
+        return {...t, positionChangedTimes: t.positionChangedTimes + 1}
+      }
+      return t;
+    });
+    this.setState({tags})
   }
 
   handleClickDelete(tag) {
@@ -23,7 +36,7 @@ export default class ControlledTags extends Component {
 
   handleClickAdd() {
     const tags = this.state.tags.slice();
-    tags.push({id: this.input.value , name: this.input.value});
+    tags.push({id: tags[tags.length - 1].id + 1 , name: this.input.value});
     this.setState({tags});
     this.input.value = '';
   }
@@ -41,19 +54,18 @@ export default class ControlledTags extends Component {
                     className="delete"
                     src={deleteBtn}
                     srcSet={`${deleteBtn2x} 2x`}  
-                    onClick={() => this.handleClickDelete(tag)}
+                    onClick={this.handleClickDelete}
                   />
-                  {tag.name}
+                  {`${tag.name}:${tag.positionChangedTimes}`}
                 </div>
               )
             }}
-            style={{height: '231px'}}
-            onChange={(tags) => this.setState({tags})}
+            onChange={this.onChange}
           />
         </div>
         <div className="inputs">
           <input ref={r => this.input = r} />
-          <button onClick={this.handleClickAdd.bind(this)}>Add</button>
+          <button onClick={this.handleClickAdd}>Add</button>
         </div>
       </div>
     );
