@@ -13,4 +13,6 @@ npm install --save react-draggable-tags
 import {DraggableArea} from 'react-draggable-tags';
 ```
 
-<img src="https://github.com/YGYOOO/react-draggable-tags/blob/master/imgs/AddAddDelete.gif" width="400">
+<img src="https://github.com/YGYOOO/react-draggable-tags/blob/master/imgs/AddAddDelete.gif" width="300">
+<img src="https://github.com/YGYOOO/react-draggable-tags/blob/master/imgs/CrossAreaDrag.gif" width="600">
+<img src="https://github.com/YGYOOO/react-draggable-tags/blob/master/imgs/TagsInTags.gif" width="750">
