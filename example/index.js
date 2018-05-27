@@ -37,6 +37,9 @@ class Main extends Component {
           <h3 className="section-title">
             Simple Usage:
           </h3>
+          <div className="des">
+            You just need to pass the "initialTags" and the "build" function to DraggableArea.
+          </div>
           <Simple />
           <SyntaxHighlighter language="jsx" style={prism}>
 {`import {DraggableArea} from 'react-draggable-tags';
@@ -169,6 +172,9 @@ const DraggableArea2 = group.addArea();`}
           <h3 className="section-title">
             Tags In Tags:
           </h3>
+          <div className="des">
+            React Draggable Tags is quite flexible, anything could be a tag, so you could even do this:
+          </div>
           <TagsInTags />
           <SyntaxHighlighter language="jsx" style={prism}>
 {`export default class Tag extends Component {
@@ -222,6 +228,9 @@ const rightTags = [
           <h3 className="section-title">
             "Controlled" Tags:
           </h3>
+          <div className="des">
+            You could have complete controll on the tags, like sorting these tags:
+          </div>
           <ControlledTags />
           <SyntaxHighlighter language="jsx" style={prism}>
 {`// use "tags" prop instead of "initialTags" on DraggableArea
@@ -257,6 +266,11 @@ handleClickAdd() {
   tags.push({id: tags[tags.length - 1].id + 1 , name: this.input.value});
   this.setState({tags});
   this.input.value = '';
+}
+
+handleClickSort() {
+  const tags = this.state.tags.sort(() => Math.random() > .5);
+  this.setState({tags})
 }`}
           </SyntaxHighlighter>
           <a href="https://github.com/YGYOOO/react-draggable-tags/tree/master/example/ControlledTags">
