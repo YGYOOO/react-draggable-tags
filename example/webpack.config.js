@@ -32,7 +32,11 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
+<<<<<<< HEAD
               limit: 20000
+=======
+              limit: 25000
+>>>>>>> develop
             }
           }
         ]
