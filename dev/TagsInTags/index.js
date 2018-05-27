@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { fromJS } from 'immutable';
 
-import {DraggableArea, DraggableAreasGroup} from 'react-draggable-tags';
+import {DraggableArea, DraggableAreasGroup} from '../../src/index';
 import deleteBtn from '../imgs/delete.png';
 import deleteBtn2x from '../imgs/delete@2x.png';
 

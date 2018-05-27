@@ -236,7 +236,6 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
     }
 
     addTag(tag) {
-      console.log(0)
       this.setTags(this.state.tags.push(tag), () => {
         this.props.onChange && this.props.onChange(this.state.tags.toJS());
       });
