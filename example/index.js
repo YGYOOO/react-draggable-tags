@@ -34,11 +34,6 @@ class Main extends Component {
 {`npm install react-draggable-tags --save`}
           </SyntaxHighlighter>
 
-
-          <h3 className="section-title">
-            View the example code
-          </h3>
-
           <h3 className="section-title">
             Simple Usage:
           </h3>
