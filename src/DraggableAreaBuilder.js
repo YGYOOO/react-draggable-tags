@@ -20,8 +20,8 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
     }
 
     componentDidMount() {
-      if (this.props.initailTags) {
-        this.setTags(List(this.props.initailTags));
+      if (this.props.initialTags) {
+        this.setTags(List(this.props.initialTags));
       } else {
         this.setTags(List(this.props.tags));
       }
@@ -32,7 +32,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
   
     componentWillReceiveProps({tags}) {
       if (!tags) return;
-      if (tags.length !== this.props.tags.length || tags.some((tag, i) => tag.id !== this.props.tags[i].id)) {
+      if (tags.length !== this.props.tags.length || tags.some((tag, i) => tag.id !== this.state.tags.get(i).id)) {
         this.setTags(List(tags));
       }
     }

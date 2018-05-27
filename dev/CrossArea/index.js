@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { fromJS } from 'immutable';
 
-import {DraggableArea, DraggableAreasGroup} from '../../src/index';
+import {DraggableAreasGroup} from '../../src';
 import deleteBtn from '../imgs/delete.png';
 import deleteBtn2x from '../imgs/delete@2x.png';
 
@@ -19,7 +19,7 @@ export default class CrossArea extends Component {
       <div className="CrossArea">
         <div className="square left">
           <DraggableArea1
-            initailTags={mock.leftTags}
+            initialTags={mock.leftTags}
             build={({tag, deleteThis}) => (
               <div className="tag">
                 {tag.id}
@@ -30,20 +30,18 @@ export default class CrossArea extends Component {
         </div>
         <div className="square right">
           <DraggableArea2
-            initailTags={mock.rightTags}
-            build={({tag, deleteThis}) => {
-              return (
-                <div className="tag">
-                  <img
-                    className="delete"
-                    src={deleteBtn}
-                    srcSet={`${deleteBtn2x} 2x`}
-                    onClick={deleteThis}
-                  />
-                  {tag.id}
-                </div>
-              )
-            }}
+            initialTags={mock.rightTags}
+            build={({tag, deleteThis}) => (
+              <div className="tag">
+                <img
+                  className="delete"
+                  src={deleteBtn}
+                  srcSet={`${deleteBtn2x} 2x`}
+                  onClick={deleteThis}
+                />
+                {tag.id}
+              </div>
+            )}
             onChange={(tags) => console.log(tags)}
           />
         </div>

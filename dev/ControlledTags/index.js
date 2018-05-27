@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { fromJS } from 'immutable';
 
-import {DraggableArea, DraggableAreasGroup} from '../../src/index';
+import {DraggableArea, DraggableAreasGroup} from '../../src';
 import deleteBtn from '../imgs/delete.png';
 import deleteBtn2x from '../imgs/delete@2x.png';
 import styles from './style.less';
@@ -17,6 +17,7 @@ export default class ControlledTags extends Component {
     this.onChange = this.onChange.bind(this);
     this.handleClickDelete = this.handleClickDelete.bind(this);
     this.handleClickAdd = this.handleClickAdd.bind(this);
+    this.handleClickSort = this.handleClickSort.bind(this);
   }
 
   onChange(tags) {
@@ -41,31 +42,35 @@ export default class ControlledTags extends Component {
     this.input.value = '';
   }
 
+  handleClickSort() {
+    const tags = this.state.tags.sort(() => Math.random() > .5);
+    this.setState({tags})
+  }
+
   render() {
     return (
       <div className="ControlledTags">
         <div className="main">
           <DraggableArea
             tags={this.state.tags}
-            build={({tag}) => {
-              return (
-                <div className="tag">
-                  <img
-                    className="delete"
-                    src={deleteBtn}
-                    srcSet={`${deleteBtn2x} 2x`}  
-                    onClick={this.handleClickDelete}
-                  />
-                  {`${tag.name}:${tag.positionChangedTimes}`}
-                </div>
-              )
-            }}
+            build={({tag}) => (
+              <div className="tag">
+                <img
+                  className="delete"
+                  src={deleteBtn}
+                  srcSet={`${deleteBtn2x} 2x`}  
+                  onClick={this.handleClickDelete}
+                />
+                {tag.name}
+              </div>
+            )}
             onChange={this.onChange}
           />
         </div>
         <div className="inputs">
           <input ref={r => this.input = r} />
           <button onClick={this.handleClickAdd}>Add</button>
+          <button onClick={this.handleClickSort}>Random Sort</button>
         </div>
       </div>
     );

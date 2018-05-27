@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from "react-dom";
 import { fromJS } from 'immutable';
 
-import {DraggableArea, DraggableAreasGroup} from '../../../src/index';
+import {DraggableArea, DraggableAreasGroup} from '../../../src';
 import deleteBtn from '../../imgs/delete.png';
 import deleteBtn2x from '../../imgs/delete@2x.png';
 
@@ -15,16 +15,17 @@ const DraggableArea1 = group.addArea();
 const DraggableArea2 = group.addArea();
 
 const getRandomTags = function(tags) {
-  return tags.sort((a,b) => Math.random() - 0.5).slice(0, 1 + Math.floor(Math.random() * 3));
+  return tags.sort((a,b) => Math.random() - 0.5) //random sort
+  .slice(0, 1 + Math.floor(Math.random() * 3)); // random slice
 }
 
-export default class Main extends Component {
+export default class Tag extends Component {
   render() {
     return (
       <div className="InnerTag">
         <div className="inner-square inner-left">
           <DraggableArea1
-            tags={getRandomTags(mock.leftTags).map(tag => ({id: Math.random(), name: tag.name}))}
+            initialTags={getRandomTags(mock.leftTags).map(tag => ({id: Math.random(), name: tag.name}))}
             build={({tag}) => (
               <div className="inner-tag">
                 {tag.name}
@@ -34,7 +35,7 @@ export default class Main extends Component {
         </div>
         <div className="inner-square inner-right">
           <DraggableArea2
-            tags={getRandomTags(mock.rightTags)}
+            initialTags={getRandomTags(mock.rightTags).map(tag => ({id: Math.random(), name: tag.name}))}
             build={({tag, deleteThis}) => {
               return (
                 <div className="inner-tag">

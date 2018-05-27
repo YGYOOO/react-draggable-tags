@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { fromJS } from 'immutable';
 
-import {DraggableArea, DraggableAreasGroup} from '../../src/index';
+import {DraggableArea, DraggableAreasGroup} from '../../src';
 import deleteBtn from '../imgs/delete.png';
 import deleteBtn2x from '../imgs/delete@2x.png';
 import styles from './style.less';
@@ -24,7 +24,7 @@ export default class AddAndDelete extends Component {
       <div className="AddAndDelete">
         <div className="main">
           <DraggableArea
-            initailTags={mock.tags}
+            initialTags={mock.tags}
             build={({tag, deleteThis}) => (
               <div className="tag">
                 <img
