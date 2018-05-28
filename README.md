@@ -1,7 +1,7 @@
 # react-draggable-tags
 An easy and flexible tag component
 
-## Documentation
+## Documentation and Demo
 See: https://ygyooo.github.io/react-draggable-tags
 
 ## Installation
