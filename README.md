@@ -1,6 +1,6 @@
 # react-draggable-tags
-An easy and flexible tag component. 
-It also works on mobile.
+An easy and flexible tag component.       
+It also works on mobile now!
 
 ## Documentation and Demo
 See: https://ygyooo.github.io/react-draggable-tags
