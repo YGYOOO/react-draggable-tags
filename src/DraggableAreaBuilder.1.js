@@ -4,7 +4,6 @@ import { fromJS, List, is } from 'immutable';
 
 import styles from './style.less';
 
-const isMobile = (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
 
 export default function buildDraggableArea({isInAnotherArea = () => {}, passAddFunc = () => {}} = {}) {
   return class DraggableArea extends React.Component {
@@ -19,7 +18,6 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       this.positions = [];
       this.rect = {};
       this.dragStart = {};
-      this.tagChanged = false;
     }
 
     componentDidMount() {
@@ -39,10 +37,6 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
         this.setTags(List(tags));
       }
     }
-
-    componentDidUpdate(prevProps, {tags}) {
-      this.tagChanged = this.tagChanged || this.state.tags.some((tag, i) => !tags.get(i) || tag.id !== tags.get(i).id);
-    }
   
     dragElement(elmnt, id, parent) {
       let prevX = 0, prevY = 0;
@@ -52,11 +46,10 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       this.positions.forEach((p, i) => {
         if (p.id === id) index = i;
       });
+      // let shouldCheck = true;
     
-      const dragStart = (e) => {
-        // e.preventDefault();
-        this.tagChanged = false;
-
+      const dragMouseDown = (e) => {
+        e.preventDefault();
         if (window.dragMouseDown) return;
         window.dragMouseDown = true;
 
@@ -70,11 +63,11 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
           window.parentDragTag = window.parentDragTag.parentElement;
         }
         if (window.parentDragTag) window.parentDragTag.style.zIndex = 2;
-        document.addEventListener("mouseup", closeDragElement, false);
-        document.addEventListener("mousemove", elementDrag, false);
-        elmnt.addEventListener("touchend", closeDragElement, false);
-        elmnt.addEventListener("touchcancel", closeDragElement, false);
-        elmnt.addEventListener("touchmove", elementDrag, false);
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+        document.addEventListener("touchend", closeDragElement, false);
+        document.addEventListener("touchcancel", closeDragElement, false);
+        document.addEventListener("touchmove", elementDrag, false);
   
         this.positions.forEach((p, i) => {
           if (p.id === id) index = i;
@@ -82,11 +75,10 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       }
 
       const elementDrag = (e) => {
-        if (isMobile) this.container.style.overflowY = 'visible';
-        // Prevent scrolling on mobile devices
-        e.type === 'touchmove' &&  e.preventDefault();
+        e.preventDefault();
+        e.stopPropagation();
 
-        // Figure out the new position of tag
+        // tag跟随鼠标移动
         e = e || window.event;
         let clientX = e.clientX || e.touches[0].clientX;
         let clientY = e.clientY || e.touches[0].clientY;
@@ -99,17 +91,17 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
         elmnt.style.top = t + "px";
         elmnt.style.left = l + "px";
 
-        
+        // 该tag拖动前中心的坐标
         let baseCenterTop= parent.offsetTop + elmnt.offsetHeight / 2;
         let baseCenterLeft = parent.offsetLeft + elmnt.offsetWidth / 2;
-        // The center position of the tag
+        // 当前中心坐标
         let ctop = baseCenterTop + t;
         let cleft = baseCenterLeft + l;
   
-        let i; // safari 10 bug
-        // Check if the tag could be put into a new position
+        let i; // safari10 bug
+        // 依次检查当前中心坐标是否在任何两个tag间的空隙中、行首、行尾、队头、队尾
         for (i = 0; i < this.positions.length - 1; i++) {
-          // Do not check its left-side space and right-side space
+          // 不检查当前tag的左邻或右邻空隙
           if ((index !== i || (index === this.positions.length - 2 && i === this.positions.length - 2)) && !(index - 1 === i && i !== 0)) {
             const p1 = this.positions[i];
             const p2 = this.positions[i+1];
@@ -117,7 +109,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
             let isHead = false;
             let isTail = false;
             if (
-              // Head of tag list
+              // 队头
               i === 0 &&
               ctop > p1.top &&
               ctop < p1.bottom &&
@@ -125,33 +117,34 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
             ) isHead = true;
         
             if (
-              // Tail of tag list
+              // 队尾
               i === this.positions.length - 2 && ((
               ctop > p2.top &&
               cleft > p2.left - 8) || ctop > p2.bottom)
             ) isTail = true;
             if ((
-              // Between two tags
+                // 两个tag之间
               ctop > p1.top &&
               ctop < p1.bottom &&
               cleft > p1.right - 8 && // 判断范围稍微大一些更加友好
               cleft < p2.left + 8
             ) || (
-              // End of line
+              // 行尾
               parent.offsetTop === p1.top && (
               ctop > p1.top &&
               ctop < p1.bottom &&
               cleft > p1.right - 8 &&
               p1.top < p2.top)
             ) || (
-              // Start of line
+              // 行首
               ctop > p2.top &&
               ctop < p2.bottom &&
               cleft < p2.left + 8 &&
               p1.top < p2.top
             ) || isHead || isTail
             ) {
-              
+              // shouldCheck = false;
+              // 当前tag
               let cur = this.state.tags.get(index);
               let tags = this.state.tags.splice(index, 1);
               if ((index < i || isHead) && !isTail) {
@@ -203,16 +196,12 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       }
   
       const closeDragElement = (e) => {
-        if (isMobile) this.container.style.overflowY = 'auto';
-        
         window.dragMouseDown = false;
-
-        document.removeEventListener("mouseup", closeDragElement, false);
-        document.removeEventListener("mousemove", elementDrag, false);
-        elmnt.removeEventListener("touchend", closeDragElement, false);
-        elmnt.removeEventListener("touchcancel", closeDragElement, false);
-        elmnt.removeEventListener("touchmove", elementDrag, false);
-
+        document.onmouseup = null;
+        document.onmousemove = null;
+        document.removeEventListener("touchend", closeDragElement, false);
+        document.removeEventListener("touchcancel", closeDragElement, false);
+        document.removeEventListener("touchmove", elementDrag, false);
         if (window.parentDragTag) window.parentDragTag.style.zIndex = 1;
 
         let eRect = elmnt.getBoundingClientRect();
@@ -230,14 +219,11 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
         elmnt.style.top = 0;
         elmnt.style.left = 0;
         elmnt.style.zIndex = 1;
-        if (this.tagChanged  && this.props.onChange) {
-          this.tagChanged  = false;
-          this.props.onChange(this.state.tags.toJS());
-        }
+        this.props.onChange && this.props.onChange(this.state.tags.toJS());
       }
   
-      elmnt.addEventListener("mousedown", dragStart, false);
-      elmnt.addEventListener("touchstart", dragStart, false);
+      elmnt.onmousedown = dragMouseDown;
+      elmnt.addEventListener("touchstart", dragMouseDown, false);
     }
 
     setTags(tags, callback) {
@@ -268,50 +254,48 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
     buildDeleteTagFunc(tag) {
       return () => {
         const tags = this.state.tags.filter(t => tag.id !== t.id);
-        this.setTags(tags, () => {
-          this.props.onChange && this.props.onChange(this.state.tags.toJS());
-        });
+        this.setTags(tags);
       }
     }
 
   
     render() {
       const {build, style, className, tagMargin = '5px', tagStyle} = this.props;
-      const tags = this.state.tags.toJS().map((tag) => (
-        <div
-          key={tag.id}
-          className="DraggableTags-tag"
-          ref={(target) => {
-            this.tagEles[tag.id] = target;
-          }}
-          style={tagStyle}
-        >
-          <div 
-            className="DraggableTags-tag-drag"
-            ref={(target) => this.draggableTagEles[tag.id] = target}
-            // onTouchStart={(e) => {
-            //   e.preventDefault();
-            //   this.dragStart[tag.id](e);
-            // }}
-            // onMouseDown={(e) => {
-            //   e.nativeEvent.preventDefault();
-            //   e.nativeEvent.stopPropagation();
-            //   this.dragStart[tag.id](e);
-            // }}
-          >
-            {build({tag, deleteThis: this.buildDeleteTagFunc(tag)})}
-          </div>
-          <div style={{opacity: 0}}>
-            {build({tag, deleteThis: this.buildDeleteTagFunc(tag)})}
-          </div>
-        </div>
-      ))
       return (
-        <div ref={r => this.container = r} className={`DraggableTags ${className || ''}`} style={isMobile ? { overflowY: 'auto', ...style} : style}>
-        {
-          // To prevent body scroll on mobile device when dragging tags
-          isMobile ? (<div style={{height: '101%'}}>{tags}</div>) : tags
-        }
+        <div ref={r => this.container = r} className={`DraggableTags ${className}`} style={style}>
+          {
+            this.state.tags.toJS().map((tag) => (
+              <div
+                key={tag.id}
+                className="DraggableTags-tag"
+                ref={(target) => {
+                  this.tagEles[tag.id] = target;
+                }}
+                style={tagStyle}
+              >
+                <div 
+                  className="DraggableTags-tag-drag"
+                  ref={(target) => this.draggableTagEles[tag.id] = target}
+                  // onTouchStart={(e) => {
+                  //   document.addEventListener('touchstart', (e) => {
+                  //     e.preventDefault();
+                  //   }, false);
+                  //   e.preventDefault();
+                  //   e.stopPropagation();
+                  //   this.dragStart[tag.id](e);
+                  // }}
+                  // onMouseDown={(e) => {
+                  //   this.dragStart[tag.id](e);
+                  // }}
+                >
+                  {build({tag, deleteThis: this.buildDeleteTagFunc(tag)})}
+                </div>
+                <div style={{opacity: 0}}>
+                  {build({tag, deleteThis: this.buildDeleteTagFunc(tag)})}
+                </div>
+              </div>
+            ))
+          }
         </div>
       );
     }
