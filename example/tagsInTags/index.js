@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {DraggableAreasGroup} from 'react-draggable-tags';
+import {DraggableAreasGroup} from '../Draggable';
 
 import Tag from './Tag';
 import deleteBtn from '../imgs/delete.png';

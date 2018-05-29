@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { fromJS } from 'immutable';
 
-import {DraggableArea, DraggableAreasGroup} from 'react-draggable-tags';
+import {DraggableArea, DraggableAreasGroup} from '../Draggable';
 import deleteBtn from '../imgs/delete.png';
 import deleteBtn2x from '../imgs/delete@2x.png';
 import styles from './style.less';
@@ -21,6 +21,7 @@ export default class ControlledTags extends Component {
   }
 
   onChange(tags) {
+    console.log(tags)
     tags = tags.map((t, i) => {
       if (this.state.tags[i].id !== t.id) {
         return {...t, positionChangedTimes: t.positionChangedTimes + 1}

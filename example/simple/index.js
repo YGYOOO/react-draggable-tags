@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { fromJS } from 'immutable';
 
-import {DraggableArea} from 'react-draggable-tags';
+import {DraggableArea} from '../Draggable';
 
 import styles from './style.less';
 
