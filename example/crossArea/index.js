@@ -20,7 +20,7 @@ export default class CrossArea extends Component {
         <div className="square left">
           <DraggableArea1
             initialTags={mock.leftTags}
-            build={({tag, deleteThis}) => (
+            render={({tag, deleteThis}) => (
               <div className="tag">
                 {tag.name}
               </div>
@@ -31,7 +31,7 @@ export default class CrossArea extends Component {
         <div className="square right">
           <DraggableArea2
             initialTags={mock.rightTags}
-            build={({tag, deleteThis}) => (
+            render={({tag, deleteThis}) => (
               <div className="tag">
                 <img
                   className="delete"

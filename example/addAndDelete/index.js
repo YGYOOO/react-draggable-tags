@@ -25,7 +25,7 @@ export default class AddAndDelete extends Component {
         <div className="main">
           <DraggableArea
             initialTags={mock.tags}
-            build={({tag, deleteThis}) => (
+            render={({tag, deleteThis}) => (
               <div className="tag">
                 <img
                   className="delete"

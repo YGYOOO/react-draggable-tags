@@ -16,7 +16,7 @@ export default class Main extends Component {
       <div className="Simple">
         <DraggableArea
           initialTags={initialTags}
-          build={({tag}) => (
+          render={({tag}) => (
             <div className="tag">
               {tag.name}
             </div>

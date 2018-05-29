@@ -54,7 +54,7 @@ export default class ControlledTags extends Component {
         <div className="main">
           <DraggableArea
             tags={this.state.tags}
-            build={({tag}) => (
+            render={({tag}) => (
               <div className="tag">
                 <img
                   className="delete"

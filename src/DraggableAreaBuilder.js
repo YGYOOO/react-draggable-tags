@@ -276,7 +276,8 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
 
   
     render() {
-      const {build, style, className, tagMargin = '5px', tagStyle} = this.props;
+      let {render, build, style, className, tagMargin = '5px', tagStyle} = this.props;
+      if (!render) render = build;
       const tags = this.state.tags.toJS().map((tag) => (
         <div
           key={tag.id}
@@ -299,10 +300,10 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
             //   this.dragStart[tag.id](e);
             // }}
           >
-            {build({tag, deleteThis: this.buildDeleteTagFunc(tag)})}
+            {render({tag, deleteThis: this.buildDeleteTagFunc(tag)})}
           </div>
           <div style={{opacity: 0}}>
-            {build({tag, deleteThis: this.buildDeleteTagFunc(tag)})}
+            {render({tag, deleteThis: this.buildDeleteTagFunc(tag)})}
           </div>
         </div>
       ))

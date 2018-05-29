@@ -26,7 +26,7 @@ export default class Tag extends Component {
         <div className="inner-square inner-left">
           <DraggableArea1
             initialTags={getRandomTags(mock.leftTags).map(tag => ({id: Math.random(), name: tag.name}))}
-            build={({tag}) => (
+            render={({tag}) => (
               <div className="inner-tag">
                 {tag.name}
               </div>
@@ -36,7 +36,7 @@ export default class Tag extends Component {
         <div className="inner-square inner-right">
           <DraggableArea2
             initialTags={getRandomTags(mock.rightTags).map(tag => ({id: Math.random(), name: tag.name}))}
-            build={({tag, deleteThis}) => {
+            render={({tag, deleteThis}) => {
               return (
                 <div className="inner-tag">
                   <img

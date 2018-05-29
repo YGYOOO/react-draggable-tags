@@ -26,7 +26,7 @@ export default class TagsInTags extends Component {
         <div className="square left">
           <DraggableArea1
             initialTags={leftTags}
-            build={({tag}) => (
+            render={({tag}) => (
               <div className="tag">
                 {tag.content}
               </div>
@@ -36,7 +36,7 @@ export default class TagsInTags extends Component {
         <div className="square right">
           <DraggableArea2
             initialTags={rightTags}
-            build={({tag, deleteThis}) => {
+            render={({tag, deleteThis}) => {
               return (
                 <div className="tag">
                   <img

@@ -38,7 +38,8 @@ class Main extends Component {
             Simple Usage:
           </h3>
           <div className="des">
-            You just need to pass the "initialTags" and the "build" function to DraggableArea.
+            You just need to pass an "initialTags" array and a "render" function to DraggableArea.<br/>
+            (React Draggable Tags do not have default styles, you could write any style for the tags as you want)
           </div>
           <Simple />
           <SyntaxHighlighter language="jsx" style={prism}>
@@ -53,7 +54,7 @@ const initialTags = [
 {`<div className="Simple">
   <DraggableArea
     initialTags={initialTags}
-    build={({tag}) => (
+    render={({tag}) => (
       <div className="tag">
         {tag.name}
       </div>
@@ -94,7 +95,7 @@ const initialTags = [
 {`<div className="main">
   <DraggableArea
     initialTags={initialTags}
-    build={({tag, deleteThis}) => (
+    render={({tag, deleteThis}) => (
       <div className="tag">
         <img
           className="delete"
@@ -139,7 +140,7 @@ const DraggableArea2 = group.addArea();`}
 {`<div className="square left">
   <DraggableArea1
     initialTags={initialTags1}
-    build={({tag, deleteThis}) => (
+    render={({tag, deleteThis}) => (
       <div className="tag">
         {tag.name}
       </div>
@@ -150,7 +151,7 @@ const DraggableArea2 = group.addArea();`}
 <div className="square right">
   <DraggableArea2
     initialTags={initialTags2}
-    build={({tag, deleteThis}) => (
+    render={({tag, deleteThis}) => (
       <div className="tag">
         <img
           className="delete"
@@ -173,7 +174,7 @@ const DraggableArea2 = group.addArea();`}
             Tags In Tags:
           </h3>
           <div className="des">
-            React Draggable Tags is quite flexible, anything could be a tag, so you could even do this:
+            React Draggable Tags is quite flexible, you can put anything in a tag. So you could even build "nested tags" like this:
           </div>
           <TagsInTags />
           <SyntaxHighlighter language="jsx" style={prism}>
@@ -237,7 +238,7 @@ const rightTags = [
 <div className="main">
   <DraggableArea
     tags={this.state.tags}
-    build={({tag}) => (
+    render={({tag}) => (
       <div className="tag">
         <img
           className="delete"
