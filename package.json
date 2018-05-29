@@ -1,6 +1,6 @@
 {
   "name": "react-draggable-tags",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "main": "lib/bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
