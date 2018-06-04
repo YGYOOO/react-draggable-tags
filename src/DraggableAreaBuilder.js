@@ -134,11 +134,11 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
               // Between two tags
               ctop > p1.top &&
               ctop < p1.bottom &&
-              cleft > p1.right - 8 && // 判断范围稍微大一些更加友好
+              cleft > p1.right - 8 &&
               cleft < p2.left + 8
             ) || (
               // End of line
-              parent.offsetTop === p1.top && (
+               (
               ctop > p1.top &&
               ctop < p1.bottom &&
               cleft > p1.right - 8 &&
