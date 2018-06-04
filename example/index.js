@@ -283,8 +283,9 @@ handleClickSort() {
   }
 }
 
-
+const root = document.createElement('div');
+document.body.appendChild(root);
 ReactDOM.render(
   <Main />,
-  document.getElementById('root')
+  root
 );
