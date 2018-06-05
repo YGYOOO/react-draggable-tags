@@ -18,6 +18,3 @@ See: https://ygyooo.github.io/react-draggable-tags
 <img src="https://github.com/YGYOOO/react-draggable-tags/raw/master/imgs/AddAddDelete.gif" width="270">
 <img src="https://github.com/YGYOOO/react-draggable-tags/raw/master/imgs/CrossAreaDrag.gif" width="540">
 <img src="https://github.com/YGYOOO/react-draggable-tags/raw/master/imgs/TagsInTags.gif" width="650">
-
-## Todo
-- Add the "draggable list" feature.
