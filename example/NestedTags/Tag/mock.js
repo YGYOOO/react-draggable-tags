@@ -6,7 +6,7 @@ export default {
   },{
     name: 'banana',
   },{
-    name: 'lemen',
+    name: 'lemon',
   },{
     name: 'orange',
   },{

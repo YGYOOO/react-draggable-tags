@@ -6,7 +6,8 @@ import { prism } from 'react-syntax-highlighter/styles/prism';
 import Simple from './Simple';
 import AddAndDelete from './AddAndDelete';
 import CrossArea from './CrossArea';
-import TagsInTags from './TagsInTags';
+import List from './List';
+import NestedTags from './NestedTags';
 import ControlledTags from './ControlledTags';
 
 import styles from './style.less';
@@ -47,7 +48,7 @@ class Main extends Component {
 
 const initialTags = [
   {id: 1, name: 'apple'}, {id: 2, name: 'watermelon'}, {id: 3, name: 'banana'},
-  {id: 4,  name: 'lemen'}, {id: 5, name: 'orange'}, {id: 6, name: 'grape'},
+  {id: 4,  name: 'lemon'}, {id: 5, name: 'orange'}, {id: 6, name: 'grape'},
   {id: 7, name: 'strawberry'}, {id: 8, name: 'cherry'}, {id: 9, name: 'peach'}];`}
           </SyntaxHighlighter>
           <SyntaxHighlighter language="jsx" style={prism}>
@@ -171,12 +172,38 @@ const DraggableArea2 = group.addArea();`}
 
 
           <h3 className="section-title">
-            Tags In Tags:
+            Draggable List:
+          </h3>
+          <List />
+          <SyntaxHighlighter language="jsx" style={prism}>
+{`<DraggableArea
+  isList
+  initialTags={mock.tags}
+  render={({tag, deleteThis}) => (
+    <div className="row">
+      <img
+        className="delete"
+        src={deleteBtn}
+        onClick={deleteThis}
+      />
+      {tag.name}
+    </div>
+  )}
+  getAddTagFunc={addTag => this.addTag = addTag}
+/>`}
+          </SyntaxHighlighter>
+          <a href="https://github.com/YGYOOO/react-draggable-tags/tree/master/example/List">
+            View code on Github
+          </a>
+
+
+          <h3 className="section-title">
+            Nested Tags:
           </h3>
           <div className="des">
             React Draggable Tags is quite flexible, you can put anything in a tag. So you could even build "nested tags" like this:
           </div>
-          <TagsInTags />
+          <NestedTags />
           <SyntaxHighlighter language="jsx" style={prism}>
 {`export default class Tag extends Component {
   render() {
@@ -221,7 +248,7 @@ const rightTags = [
 </div>
 `}
           </SyntaxHighlighter>
-          <a href="https://github.com/YGYOOO/react-draggable-tags/tree/master/example/TagsInTags">
+          <a href="https://github.com/YGYOOO/react-draggable-tags/tree/master/example/NestedTags">
             View code on Github
           </a>
 

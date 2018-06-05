@@ -45,6 +45,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
     }
   
     dragElement(elmnt, id, parent) {
+      const isList = this.props.isList;
       let prevX = 0, prevY = 0;
       let rect = {};
 
@@ -116,49 +117,82 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
   
             let isHead = false;
             let isTail = false;
+            let between2Tags = false;
+            let endOfLine = false;
+            let startOfLine = false;
+
+            if (!isList) {
+              // Is not "list view"
+              if (
+                // Head of tag list
+                i === 0 &&
+                ctop > p1.top &&
+                ctop < p1.bottom &&
+                cleft < p1.left + 8
+              ) isHead = true;
+          
+              if (
+                // Tail of tag list
+                i === this.positions.length - 2 && ((
+                ctop > p2.top &&
+                cleft > p2.left - 8) || ctop > p2.bottom)
+              ) isTail = true;
+  
+              if (
+                // Between two tags
+                ctop > p1.top &&
+                ctop < p1.bottom &&
+                cleft > p1.right - 8 &&
+                cleft < p2.left + 8
+              ) between2Tags = true;
+  
+              if (
+                // Start of line
+                ctop > p2.top &&
+                ctop < p2.bottom &&
+                cleft < p2.left + 8 &&
+                p1.top < p2.top
+              ) startOfLine = true;
+  
+              if (
+                // End of line
+                ctop > p1.top &&
+                ctop < p1.bottom &&
+                cleft > p1.right - 8 &&
+                p1.top < p2.top
+              ) endOfLine = true;
+            } else {
+              // Is "list view"
+              if (
+                // Between two tags
+                ctop < p1.bottom + 6 &&
+                ctop > p2.top - 6
+              ) between2Tags = true;
+
+              if (
+                // Head of tag list
+                i === 0 &&
+                ctop < p1.top + 4
+              ) isHead = true;
+
+              if (
+                // Tail of tag list
+                i === this.positions.length - 2 &&
+                ctop > p2.bottom - 4
+              ) isTail = true;
+            }
+
             if (
-              // Head of tag list
-              i === 0 &&
-              ctop > p1.top &&
-              ctop < p1.bottom &&
-              cleft < p1.left + 8
-            ) isHead = true;
-        
-            if (
-              // Tail of tag list
-              i === this.positions.length - 2 && ((
-              ctop > p2.top &&
-              cleft > p2.left - 8) || ctop > p2.bottom)
-            ) isTail = true;
-            if ((
-              // Between two tags
-              ctop > p1.top &&
-              ctop < p1.bottom &&
-              cleft > p1.right - 8 && // 判断范围稍微大一些更加友好
-              cleft < p2.left + 8
-            ) || (
-              // End of line
-              parent.offsetTop === p1.top && (
-              ctop > p1.top &&
-              ctop < p1.bottom &&
-              cleft > p1.right - 8 &&
-              p1.top < p2.top)
-            ) || (
-              // Start of line
-              ctop > p2.top &&
-              ctop < p2.bottom &&
-              cleft < p2.left + 8 &&
-              p1.top < p2.top
-            ) || isHead || isTail
+              (!isList && (isHead || isTail || between2Tags || startOfLine || endOfLine))
+              ||
+              (isList && (isHead || isTail || between2Tags))
             ) {
-              
               let cur = this.state.tags.get(index);
               let tags = this.state.tags.splice(index, 1);
               if ((index < i || isHead) && !isTail) {
                 tags = tags.splice(i, 0, cur);
                 index = i;
-              }
-              else {
+              } else {
                 tags = tags.splice(i+1, 0, cur); 
                 index = i + 1;
               }
@@ -276,7 +310,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
 
   
     render() {
-      let {render, build, style, className, tagMargin = '5px', tagStyle} = this.props;
+      let {render, build, style, className, isList, tagMargin = '5px', tagStyle} = this.props;
       if (!render) render = build;
       const tags = this.state.tags.toJS().map((tag) => (
         <div
@@ -285,30 +319,25 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
           ref={(target) => {
             this.tagEles[tag.id] = target;
           }}
-          style={tagStyle}
+          style={isList ? {display: 'block', ...tagStyle} : tagStyle}
         >
           <div 
             className="DraggableTags-tag-drag"
             ref={(target) => this.draggableTagEles[tag.id] = target}
-            // onTouchStart={(e) => {
-            //   e.preventDefault();
-            //   this.dragStart[tag.id](e);
-            // }}
-            // onMouseDown={(e) => {
-            //   e.nativeEvent.preventDefault();
-            //   e.nativeEvent.stopPropagation();
-            //   this.dragStart[tag.id](e);
-            // }}
           >
             {render({tag, deleteThis: this.buildDeleteTagFunc(tag)})}
           </div>
-          <div style={{opacity: 0}}>
+          <div style={{opacity: 0, overflow: 'hidden'}}>
             {render({tag, deleteThis: this.buildDeleteTagFunc(tag)})}
           </div>
         </div>
       ))
       return (
-        <div ref={r => this.container = r} className={`DraggableTags ${className || ''}`} style={isMobile ? { overflowY: 'auto', ...style} : style}>
+        <div
+          ref={r => this.container = r}
+          className={`DraggableTags ${className || ''}`}
+          style={isMobile ? { overflowY: 'auto', ...style} : style}
+        >
         {
           // To prevent body scroll on mobile device when dragging tags
           isMobile ? (<div style={{height: '101%'}}>{tags}</div>) : tags

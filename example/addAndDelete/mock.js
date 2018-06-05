@@ -10,7 +10,7 @@ export default {
     name: 'banana',
   },{
     id: '4',
-    name: 'lemen',
+    name: 'lemon',
   },{
     id: '5',
     name: 'orange',
