@@ -10,21 +10,9 @@ export default {
     name: 'banana',
   },{
     id: '4',
-    name: 'lemen',
+    name: 'lemon',
   },{
     id: '5',
     name: 'orange',
-  },{
-    id: '6',
-    name: 'grape',
-  },{
-    id: '7',
-    name: 'strawberry',
-  },{
-    id: '8',
-    name: 'cherry',
-  },{
-    id: '9',
-    name: 'peach',
   }],
 }

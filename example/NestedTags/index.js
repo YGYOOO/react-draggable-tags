@@ -19,7 +19,7 @@ const group = new DraggableAreasGroup();
 const DraggableArea1 = group.addArea();
 const DraggableArea2 = group.addArea();
 
-export default class TagsInTags extends Component {
+export default class NestedTags extends Component {
   render() {
     return (
       <div className="TagsInTags">

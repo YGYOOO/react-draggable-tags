@@ -8,7 +8,7 @@ import styles from './style.less';
 
 import mock from './mock.js';
 
-export default class AddAndDelete extends Component {
+export default class List extends Component {
   constructor() {
     super();
     this.handleClickAdd = this.handleClickAdd.bind(this);
@@ -21,16 +21,17 @@ export default class AddAndDelete extends Component {
 
   render() {
     return (
-      <div className="AddAndDelete">
+      <div className="List">
         <div className="main">
           <DraggableArea
+            isList
             initialTags={mock.tags}
             render={({tag, deleteThis}) => (
               <div className="row">
                 <img
                   className="delete"
                   src={deleteBtn}
-                  srcSet={`${deleteBtn2x} 2x`}  
+                  srcSet={`${deleteBtn2x} 2x`}
                   onClick={deleteThis}
                 />
                 {tag.name}

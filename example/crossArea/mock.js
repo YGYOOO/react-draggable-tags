@@ -9,8 +9,8 @@ export default {
     id: 'banana',
     name: 'banana',
   },{
-    id: 'lemen',
-    name: 'lemen',
+    id: 'lemon',
+    name: 'lemon',
   },{
     id: 'orange',
     name: 'orange',
