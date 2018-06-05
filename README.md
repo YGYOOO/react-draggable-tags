@@ -12,7 +12,7 @@ import {DraggableArea} from 'react-draggable-tags';
 ```
 
 ## Documentation and Demo
-See: https://ygyooo.github.io/react-draggable-tags
+https://ygyooo.github.io/react-draggable-tags
 
 ## Screenshots
 <img src="https://github.com/YGYOOO/react-draggable-tags/raw/master/imgs/AddAddDelete.gif" width="270">
