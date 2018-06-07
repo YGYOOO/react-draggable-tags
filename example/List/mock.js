@@ -11,8 +11,5 @@ export default {
   },{
     id: '4',
     name: 'lemon',
-  },{
-    id: '5',
-    name: 'orange',
   }],
 }
