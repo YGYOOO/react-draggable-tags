@@ -25,7 +25,7 @@
     "less-loader": "^4.1.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-draggable-tags": "^0.2.1",
+    "react-draggable-tags": "^0.2.5",
     "react-prism": "^4.3.2",
     "style-loader": "^0.21.0",
     "url-loader": "^1.0.1",
