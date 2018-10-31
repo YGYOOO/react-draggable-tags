@@ -32,7 +32,7 @@
     "html-webpack-plugin": "^3.2.0",
     "react": "^16.4.0",
     "react-dom": "^15.4.1",
-    "react-draggable-tags": "^0.2.0",
+    "react-draggable-tags": "^0.2.5",
     "react-prism": "^4.3.2"
   },
   "keywords": [

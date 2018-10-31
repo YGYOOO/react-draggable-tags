@@ -1,6 +1,6 @@
 {
   "name": "react-draggable-tags",
-  "version": "0.2.0",
+  "version": "0.2.5",
   "main": "lib/bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -34,7 +34,8 @@
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-prism": "^4.3.2",
-    "react-syntax-highlighter": "^7.0.4"
+    "react-syntax-highlighter": "^7.0.4",
+    "webpack-node-externals": "^1.7.2"
   },
   "keywords": [
     "tags",
