@@ -1,6 +1,6 @@
 {
   "name": "react-draggable-tags",
-  "version": "0.2.5",
+  "version": "0.2.7",
   "main": "lib/bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,6 +9,10 @@
   },
   "author": "Yifan Gu",
   "license": "MIT",
+  "peerDependencies": {
+    "react": ">= 15.0",
+    "react-dom": ">= 15.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
@@ -23,8 +27,6 @@
     "immutable": "^3.8.2",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
     "react-prism": "^4.3.2",
     "react-syntax-highlighter": "^7.0.4",
     "style-loader": "^0.21.0",
