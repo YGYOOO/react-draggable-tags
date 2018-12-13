@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import ReactDOM from "react-dom";
-import { fromJS } from 'immutable';
 
 import {DraggableArea, DraggableAreasGroup} from '../../Draggable';
 import deleteBtn from '../../imgs/delete.png';

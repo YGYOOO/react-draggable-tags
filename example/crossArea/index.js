@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { fromJS } from 'immutable';
 
 import {DraggableAreasGroup} from '../Draggable';
 import deleteBtn from '../imgs/delete.png';
