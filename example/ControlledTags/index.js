@@ -20,19 +20,12 @@ export default class ControlledTags extends Component {
   }
 
   onChange(tags) {
-    console.log(tags)
-    tags = tags.map((t, i) => {
-      if (this.state.tags[i].id !== t.id) {
-        return {...t, positionChangedTimes: t.positionChangedTimes + 1}
-      }
-      return t;
-    });
-    this.setState({tags})
+    this.setState({tags});
   }
 
   handleClickDelete(tag) {
     const tags = this.state.tags.filter(t => tag.id !== t.id);
-    this.setState({tags})
+    this.setState({tags});
   }
 
   handleClickAdd() {
@@ -43,8 +36,8 @@ export default class ControlledTags extends Component {
   }
 
   handleClickSort() {
-    const tags = this.state.tags.sort(() => Math.random() > .5);
-    this.setState({tags})
+    const tags = this.state.tags.sort(() => Math.random() - .5);
+    this.setState({tags});
   }
 
   render() {
@@ -59,7 +52,7 @@ export default class ControlledTags extends Component {
                   className="delete"
                   src={deleteBtn}
                   srcSet={`${deleteBtn2x} 2x`}  
-                  onClick={this.handleClickDelete}
+                  onClick={() => this.handleClickDelete(tag)}
                 />
                 {tag.name}
               </div>

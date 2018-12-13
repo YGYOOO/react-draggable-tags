@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import SyntaxHighlighter from 'react-syntax-highlighter/prism';
-import { prism } from 'react-syntax-highlighter/styles/prism';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { prism } from 'react-syntax-highlighter/dist/styles/prism';
+
 
 import Simple from './Simple';
 import AddAndDelete from './AddAndDelete';
@@ -284,9 +285,13 @@ const rightTags = [
 </div>`}
           </SyntaxHighlighter>
           <SyntaxHighlighter language="jsx" style={prism}>
-{`handleClickDelete(tag) {
+{`onChange(tags) {
+  this.setState({tags});
+}
+
+handleClickDelete(tag) {
   const tags = this.state.tags.filter(t => tag.id !== t.id);
-  this.setState({tags})
+  this.setState({tags});
 }
 
 handleClickAdd() {
@@ -297,8 +302,8 @@ handleClickAdd() {
 }
 
 handleClickSort() {
-  const tags = this.state.tags.sort(() => Math.random() > .5);
-  this.setState({tags})
+  const tags = this.state.tags.sort(() => Math.random() - .5);
+  this.setState({tags});
 }`}
           </SyntaxHighlighter>
           <a href="https://github.com/YGYOOO/react-draggable-tags/tree/master/example/ControlledTags">
