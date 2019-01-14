@@ -1,30 +1,30 @@
 export default {
   tags: [{
     id: '1',
-    name: 'apple',
+    content: 'apple',
   },{
     id: '2',
-    name: 'watermelon',
+    content: 'watermelon',
   },{
     id: '3',
-    name: 'banana',
+    content: 'banana',
   },{
     id: '4',
-    name: 'lemon',
+    content: 'lemon',
   },{
     id: '5',
-    name: 'orange',
+    content: 'orange',
   },{
     id: '6',
-    name: 'grape',
+    content: 'grape',
   },{
     id: '7',
-    name: 'strawberry',
+    content: 'strawberry',
   },{
     id: '8',
-    name: 'cherry',
+    content: 'cherry',
   },{
     id: '9',
-    name: 'peach',
+    content: 'peach',
   }],
 }

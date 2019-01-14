@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
+  mode: 'development',
   entry: './index.js',
   output: {
     filename: 'bundle.js',
@@ -27,7 +28,16 @@ module.exports = {
           loader: 'less-loader' // compiles Less to CSS
         }]
       },
-      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
+      { test: /\.js$/, exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-react']
+            }
+          }
+        ],
+      },
       {
         test: /\.(png|jpg|gif)$/,
         use: [

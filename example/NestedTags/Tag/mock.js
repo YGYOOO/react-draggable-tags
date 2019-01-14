@@ -2,33 +2,33 @@ import React from 'react';
 
 export default {
   leftTags: [{
-    name: 'apple',
+    content: 'apple',
   },{
-    name: 'banana',
+    content: 'banana',
   },{
-    name: 'lemon',
+    content: 'lemon',
   },{
-    name: 'orange',
+    content: 'orange',
   },{
-    name: 'grape',
+    content: 'grape',
   },{
-    name: 'strawberry',
+    content: 'strawberry',
   },{
-    name: 'cherry',
+    content: 'cherry',
   }],
   rightTags: [{
-    name: 'tomato',
+    content: 'tomato',
   },{
-    name: 'mushroom',
+    content: 'mushroom',
   },{
-    name: 'pea',
+    content: 'pea',
   },{
-    name: 'carrot',
+    content: 'carrot',
   },{
-    name: 'cabbage',
+    content: 'cabbage',
   },{
-    name: 'melon',
+    content: 'melon',
   },{
-    name: 'celery',
+    content: 'celery',
   }],
 }

@@ -40,7 +40,7 @@ class Main extends Component {
             Simple Usage:
           </h3>
           <div className="des">
-            You just need to pass an "initialTags" array and a "render" function to DraggableArea.<br/>
+            You need to pass an "tags" array and a "render" function to DraggableArea. Each tag should have a unique id.<br/>
             (React Draggable Tags do not have default styles, you could write any style for the tags as you want)
           </div>
           <Simple />
@@ -48,20 +48,20 @@ class Main extends Component {
 {`import {DraggableArea} from 'react-draggable-tags';
 
 const initialTags = [
-  {id: 1, name: 'apple'}, {id: 2, name: 'watermelon'}, {id: 3, name: 'banana'},
-  {id: 4,  name: 'lemon'}, {id: 5, name: 'orange'}, {id: 6, name: 'grape'},
-  {id: 7, name: 'strawberry'}, {id: 8, name: 'cherry'}, {id: 9, name: 'peach'}];`}
+  {id: 1, content: 'apple'}, {id: 2, content: 'undraggable', undraggable: true}, {id: 3, content: 'banana'},
+  {id: 4,  content: 'lemon'}, {id: 5, content: 'orange'}, {id: 6, content: 'grape'},
+  {id: 7, content: 'strawberry'}, {id: 8, content: 'cherry'}, {id: 9, content: 'peach'}];`}
           </SyntaxHighlighter>
           <SyntaxHighlighter language="jsx" style={prism}>
 {`<div className="Simple">
   <DraggableArea
-    initialTags={initialTags}
+    tags={initialTags}
     render={({tag}) => (
       <div className="tag">
-        {tag.name}
+        {tag.content}
       </div>
     )}
-    onChange={(tags) => console.log(tags)}
+    onChange={tags => console.log(tags)}
   />
 </div>`}
           </SyntaxHighlighter>
@@ -94,32 +94,40 @@ const initialTags = [
           </h3>
           <AddAndDelete />
           <SyntaxHighlighter language="jsx" style={prism}>
-{`<div className="main">
-  <DraggableArea
-    initialTags={initialTags}
-    render={({tag, deleteThis}) => (
-      <div className="tag">
-        <img
-          className="delete"
-          src={deleteBtn}
-          onClick={deleteThis}
-        />
-        {tag.name}
-      </div>
-    )}
-    getAddTagFunc={addTag => this.addTag = addTag}
-    onChange={(tags) => console.log(tags)}
-  />
-</div>
-<div className="inputs">
-  <input ref={r => this.input = r} />
-  <button onClick={this.handleClickAdd}>Add</button>
+{`<div className="AddAndDelete">
+  <div className="main">
+    <DraggableArea
+      tags={this.state.tags}
+      render={({tag}) => (
+        <div className="tag">
+          <img
+            className="delete"
+            src={deleteBtn}
+            onClick={() => this.handleClickDelete(tag)}
+          />
+          {tag.content}
+        </div>
+      )}
+      onChange={tags => this.setState({tags})}
+    />
+  </div>
+  <div className="inputs">
+    <input ref={r => this.input = r} />
+    <button onClick={this.handleClickAdd}>Add</button>
+  </div>
 </div>`}
           </SyntaxHighlighter>
           <SyntaxHighlighter language="jsx" style={prism}>
 {`handleClickAdd() {
-  this.addTag({id: this.input.value , name: this.input.value});
+  const tags = this.state.tags.slice();
+  tags.push({id: Math.random() , content: this.input.value});
+  this.setState({tags});
   this.input.value = '';
+}
+
+handleClickDelete(tag) {
+  const tags = this.state.tags.filter(t => tag.id !== t.id);
+  this.setState({tags});
 }`}
           </SyntaxHighlighter>
           <a href="https://github.com/YGYOOO/react-draggable-tags/tree/master/example/AddAndDelete">
@@ -141,31 +149,37 @@ const DraggableArea2 = group.addArea();`}
           <SyntaxHighlighter language="jsx" style={prism}>
 {`<div className="square left">
   <DraggableArea1
-    initialTags={initialTags1}
-    render={({tag, deleteThis}) => (
+    tags={this.state.leftTags}
+    render={({tag}) => (
       <div className="tag">
-        {tag.name}
+        {tag.content}
       </div>
     )}
-    onChange={(tags) => console.log(tags)}
+    onChange={leftTags => this.setState({leftTags})}
   />
 </div>
 <div className="square right">
   <DraggableArea2
-    initialTags={initialTags2}
-    render={({tag, deleteThis}) => (
+    tags={this.state.rightTags}
+    render={({tag}) => (
       <div className="tag">
         <img
           className="delete"
           src={deleteBtn}
-          onClick={deleteThis}
+          onClick={() => this.handleClickDelete(tag)}
         />
-        {tag.name}
+        {tag.content}
       </div>
     )}
-    onChange={(tags) => console.log(tags)}
+    onChange={rightTags => this.setState({rightTags})}
   />
 </div>`}
+          </SyntaxHighlighter>
+          <SyntaxHighlighter language="jsx" style={prism}>
+{`handleClickDelete(tag) {
+  const tags = this.state.tags.filter(t => tag.id !== t.id);
+  this.setState({tags});
+}`}
           </SyntaxHighlighter>
           <a href="https://github.com/YGYOOO/react-draggable-tags/tree/master/example/CrossArea">
             View code on Github
@@ -179,19 +193,32 @@ const DraggableArea2 = group.addArea();`}
           <SyntaxHighlighter language="jsx" style={prism}>
 {`<DraggableArea
   isList
-  initialTags={mock.tags}
-  render={({tag, deleteThis}) => (
+  tags={this.state.tags}
+  render={({tag}) => (
     <div className="row">
       <img
         className="delete"
         src={deleteBtn}
-        onClick={deleteThis}
+        onClick={() => this.handleClickDelete(tag)}
       />
-      {tag.name}
+      {tag.content}
     </div>
   )}
-  getAddTagFunc={addTag => this.addTag = addTag}
+  onChange={(tags) => this.setState({tags})}
 />`}
+          </SyntaxHighlighter>
+          <SyntaxHighlighter language="jsx" style={prism}>
+{`handleClickAdd() {
+  const tags = this.state.tags.slice();
+  tags.push({id: Math.random() , content: this.input.value});
+  this.setState({tags});
+  this.input.value = '';
+}
+
+handleClickDelete(tag) {
+  const tags = this.state.tags.filter(t => tag.id !== t.id);
+  this.setState({tags});
+}`}
           </SyntaxHighlighter>
           <a href="https://github.com/YGYOOO/react-draggable-tags/tree/master/example/List">
             View code on Github
@@ -226,87 +253,38 @@ const DraggableArea2 = group.addArea();`}
 }`}
           </SyntaxHighlighter>
           <SyntaxHighlighter language="jsx" style={prism}>
-{`const leftTags = [
-  {id: '1', content: <Tag />}, {id: '2', content: <Tag />},
-  {id: '3', content: <Tag />}, {id: '4', content: <Tag />}];
-const rightTags = [
-  {id: '10', content: <Tag />}, {id: '11', content: <Tag />},
-  {id: '12', content: <Tag />}];
-  
+{`constructor() {
+  ...
+  this.state = {
+    leftTags: [
+      {id: '1', content: <Tag />}, {id: '2', content: <Tag />},
+      {id: '3', content: <Tag />}, {id: '4', content: <Tag />}
+    ],
+    rightTags: ...
+  };
+}
   ...
 
 <div className="square left">
   <DraggableArea1
-    initialTags={leftTags}
+    tags={this.state.leftTags}
+    render={({tag}) => (
+      <div className="tag">
+        {tag.content}
+      </div>
+    )}
     ...
   />
 </div>
 <div className="square right">
   <DraggableArea2
-    initialTags={rightTags}
+    tags={this.state.rightTags}
     ...
   />
 </div>
 `}
           </SyntaxHighlighter>
           <a href="https://github.com/YGYOOO/react-draggable-tags/tree/master/example/NestedTags">
-            View code on Github
-          </a>
-
-
-          <h3 className="section-title">
-            "Controlled" Tags:
-          </h3>
-          <div className="des">
-            You could have complete controll on the tags, like sorting these tags:
-          </div>
-          <ControlledTags />
-          <SyntaxHighlighter language="jsx" style={prism}>
-{`// use "tags" prop instead of "initialTags" on DraggableArea
-<div className="main">
-  <DraggableArea
-    tags={this.state.tags}
-    render={({tag}) => (
-      <div className="tag">
-        <img
-          className="delete"
-          src={deleteBtn}
-          onClick={this.handleClickDelete}
-        />
-        {tag.name + ':' + tag.positionChangedTimes}
-      </div>
-    )}
-    onChange={this.onChange}
-  />
-</div>
-<div className="inputs">
-  <input ref={r => this.input = r} />
-  <button onClick={this.handleClickAdd}>Add</button>
-</div>`}
-          </SyntaxHighlighter>
-          <SyntaxHighlighter language="jsx" style={prism}>
-{`onChange(tags) {
-  this.setState({tags});
-}
-
-handleClickDelete(tag) {
-  const tags = this.state.tags.filter(t => tag.id !== t.id);
-  this.setState({tags});
-}
-
-handleClickAdd() {
-  const tags = this.state.tags.slice();
-  tags.push({id: tags[tags.length - 1].id + 1 , name: this.input.value});
-  this.setState({tags});
-  this.input.value = '';
-}
-
-handleClickSort() {
-  const tags = this.state.tags.sort(() => Math.random() - .5);
-  this.setState({tags});
-}`}
-          </SyntaxHighlighter>
-          <a href="https://github.com/YGYOOO/react-draggable-tags/tree/master/example/ControlledTags">
             View code on Github
           </a>
         </div>

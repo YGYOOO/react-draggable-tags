@@ -1,67 +1,67 @@
 export default {
   leftTags: [{
     id: 'apple',
-    name: 'apple',
+    content: 'apple',
   },{
     id: 'watermelon',
-    name: 'watermelon',
+    content: 'watermelon',
   },{
     id: 'banana',
-    name: 'banana',
+    content: 'banana',
   },{
     id: 'lemon',
-    name: 'lemon',
+    content: 'lemon',
   },{
     id: 'orange',
-    name: 'orange',
+    content: 'orange',
   },{
     id: 'grape',
-    name: 'grape',
+    content: 'grape',
   },{
     id: 'strawberry',
-    name: 'strawberry',
+    content: 'strawberry',
   },{
     id: 'cherry',
-    name: 'cherry',
+    content: 'cherry',
   }],
   rightTags: [{
     id: 'tomato',
-    name: 'tomato',
+    content: 'tomato',
   },{
     id: 'cucumber',
-    name: 'cucumber',
+    content: 'cucumber',
   },{
     id: 'mushroom',
-    name: 'mushroom',
+    content: 'mushroom',
   },{
     id: 'pea',
-    name: 'pea',
+    content: 'pea',
   },{
     id: 'carrot',
-    name: 'carrot',
+    content: 'carrot',
   },{
     id: 'cabbage',
-    name: 'cabbage',
+    content: 'cabbage',
   },{
     id: 'Chinese cabbage',
-    name: 'Chinese cabbage',
+    content: 'Chinese cabbage',
   },{
     id: 'melon',
-    name: 'melon',
+    content: 'melon',
   },{
     id: 'celery',
-    name: 'celery',
+    content: 'celery',
   },{
     id: 'pepper',
-    name: 'pepper',
+    content: 'pepper',
   },{
     id: 'eggplant',
-    name: 'eggplant',
+    content: 'eggplant',
   },{
     id: 'beet',
-    name: 'beet',
+    content: 'beet',
   },{
     id: 'been',
-    name: 'been',
+    content: 'been',
   }],
 }

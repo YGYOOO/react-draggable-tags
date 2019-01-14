@@ -20,35 +20,50 @@ const DraggableArea1 = group.addArea();
 const DraggableArea2 = group.addArea();
 
 export default class NestedTags extends Component {
+  constructor() {
+    super();
+    this.state = {
+      leftTags,
+      rightTags
+    };
+  }
+
+  handleClickDelete(tag) {
+    const rightTags = this.state.rightTags.filter(t => tag.id !== t.id);
+    this.setState({rightTags});
+  }
+
   render() {
     return (
       <div className="TagsInTags">
         <div className="square left">
           <DraggableArea1
-            initialTags={leftTags}
+            tags={this.state.leftTags}
             render={({tag}) => (
               <div className="tag">
                 {tag.content}
               </div>
             )}
+            onChange={leftTags => this.setState({leftTags})}
           />
         </div>
         <div className="square right">
           <DraggableArea2
-            initialTags={rightTags}
-            render={({tag, deleteThis}) => {
+            tags={this.state.rightTags}
+            render={({tag}) => {
               return (
                 <div className="tag">
                   <img
                     className="delete"
                     src={deleteBtn}
                     srcSet={`${deleteBtn2x} 2x`}
-                    onClick={deleteThis}
+                    onClick={() => this.handleClickDelete(tag)}
                   />
                   {tag.content}
                 </div>
               )
             }}
+            onChange={rightTags => this.setState({rightTags})}
           />
         </div>
       </div>

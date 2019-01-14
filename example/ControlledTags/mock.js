@@ -1,39 +1,39 @@
 export default {
   tags: [{
     id: '1',
-    name: 'apple',
+    content: 'apple',
     positionChangedTimes: 0,
   },{
     id: '2',
-    name: 'watermelon',
+    content: 'watermelon',
     positionChangedTimes: 0,
   },{
     id: '3',
-    name: 'banana',
+    content: 'banana',
     positionChangedTimes: 0,
   },{
     id: '4',
-    name: 'lemon',
+    content: 'lemon',
     positionChangedTimes: 0,
   },{
     id: '5',
-    name: 'orange',
+    content: 'orange',
     positionChangedTimes: 0,
   },{
     id: '6',
-    name: 'grape',
+    content: 'grape',
     positionChangedTimes: 0,
   },{
     id: '7',
-    name: 'strawberry',
+    content: 'strawberry',
     positionChangedTimes: 0,
   },{
     id: '8',
-    name: 'cherry',
+    content: 'cherry',
     positionChangedTimes: 0,
   },{
     id: '9',
-    name: 'peach',
+    content: 'peach',
     positionChangedTimes: 0,
   }],
 }

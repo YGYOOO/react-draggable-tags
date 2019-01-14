@@ -18,23 +18,38 @@ const getRandomTags = function(tags) {
 }
 
 export default class Tag extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      topTags: getRandomTags(mock.leftTags).map(tag => ({id: Math.random(), content: tag.content})),
+      bottomTags: getRandomTags(mock.rightTags).map(tag => ({id: Math.random(), content: tag.content})),
+    };
+  }
+
+  handleClickDelete(tag) {
+    const bottomTags = this.state.bottomTags.filter(t => tag.id !== t.id);
+    this.setState({bottomTags});
+  }
+
   render() {
     return (
       <div className="InnerTag">
         <div className="inner-square inner-left">
           <DraggableArea1
-            initialTags={getRandomTags(mock.leftTags).map(tag => ({id: Math.random(), name: tag.name}))}
+            tags={this.state.topTags}
             render={({tag}) => (
               <div className="inner-tag">
-                {tag.name}
+                {tag.content}
               </div>
             )}
+            onChange={topTags => this.setState({topTags})}
           />
         </div>
         <div className="inner-square inner-right">
           <DraggableArea2
-            initialTags={getRandomTags(mock.rightTags).map(tag => ({id: Math.random(), name: tag.name}))}
-            render={({tag, deleteThis}) => {
+            tags={this.state.bottomTags}
+            render={({tag}) => {
               return (
                 <div className="inner-tag">
                   <img
@@ -47,14 +62,16 @@ export default class Tag extends Component {
                     }}
                     onMouseUp={(e) => {
                       if (this.clientX - e.clientX < 2 & this.clientY - e.clientY < 2) {
-                        deleteThis();
+                        // deleteThis();
+                        this.handleClickDelete(tag);
                       }
                     }}
                   />
-                  {tag.name}
+                  {tag.content}
                 </div>
               )
             }}
+            onChange={bottomTags => this.setState({bottomTags})}
           />
         </div>
       </div>

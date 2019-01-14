@@ -1,4 +1,4 @@
 {
-  "presets": ["es2017"],
+  "presets": ["@babel/preset-env"],
   "plugins": ["transform-react-jsx", "transform-object-rest-spread"]
 }

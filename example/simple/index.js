@@ -5,22 +5,22 @@ import {DraggableArea} from '../Draggable';
 import styles from './style.less';
 
 const initialTags = [
-  {id: 1, name: 'apple'}, {id: 2, name: 'watermelon'}, {id: 3, name: 'banana'},
-  {id: 4,  name: 'lemon'}, {id: 5, name: 'orange'}, {id: 6, name: 'grape'},
-  {id: 7, name: 'strawberry'}, {id: 8, name: 'cherry'}, {id: 9, name: 'peach'}];
+  {id: 1, content: 'apple'}, {id: 2, content: 'undraggable', undraggable: true}, {id: 3, content: 'banana'},
+  {id: 4,  content: 'lemon'}, {id: 5, content: 'orange'}, {id: 6, content: 'grape'},
+  {id: 7, content: 'strawberry'}, {id: 8, content: 'cherry'}, {id: 9, content: 'peach'}];
 
 export default class Main extends Component {
   render() {
     return (
       <div className="Simple">
         <DraggableArea
-          initialTags={initialTags}
+          tags={initialTags}
           render={({tag}) => (
             <div className="tag">
-              {tag.name}
+              {tag.content}
             </div>
           )}
-          onChange={(tags) => console.log(tags)}
+          onChange={tags => console.log(tags)}
         />
       </div>
     );

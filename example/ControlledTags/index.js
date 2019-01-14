@@ -30,7 +30,7 @@ export default class ControlledTags extends Component {
 
   handleClickAdd() {
     const tags = this.state.tags.slice();
-    tags.push({id: tags[tags.length - 1].id + 1 , name: this.input.value});
+    tags.push({id: Math.random() , content: this.input.value});
     this.setState({tags});
     this.input.value = '';
   }
@@ -54,7 +54,7 @@ export default class ControlledTags extends Component {
                   srcSet={`${deleteBtn2x} 2x`}  
                   onClick={() => this.handleClickDelete(tag)}
                 />
-                {tag.name}
+                {tag.content}
               </div>
             )}
             onChange={this.onChange}

@@ -35,7 +35,8 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
   
     componentWillReceiveProps({tags}) {
       if (!tags) return;
-      if (tags.length !== this.props.tags.length || tags.some((tag, i) => tag.id !== this.state.tags.get(i).id)) {
+
+      if ((tags.length !== this.props.tags.length || tags.some((tag, i) => !this.state.tags.get(i) || tag.id !== this.state.tags.get(i).id)) && !this.forbitSetTagsState) {
         this.setTags(List(tags));
       }
     }
@@ -253,12 +254,16 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
         let x = eRect.left + eRect.width / 2;
         let y = eRect.top + eRect.height / 2;
         if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+          this.forbitSetTagsState = true;
           if (isInAnotherArea(elmnt.getBoundingClientRect(), this.state.tags.get(index))) {
             this.positions.splice(index, 1);
             this.setState({tags: this.state.tags.splice(index, 1)}, () => {
               this.props.onChange && this.props.onChange(this.state.tags.toJS());
+              this.forbitSetTagsState = false;
             });
             return;
+          } else {
+            this.forbitSetTagsState = false;
           }
         }
         elmnt.style.top = 0;
@@ -288,7 +293,9 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
             bottom: tag.offsetTop + tag.offsetHeight,
             right: tag.offsetLeft + tag.offsetWidth,
           });
-          this.dragElement(draggableTag, t.id, tag);
+          if (!t.undraggable) {
+            this.dragElement(draggableTag, t.id, tag);
+          }
         });
       });
     }
@@ -315,7 +322,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       const tags = this.state.tags.toJS().map((tag) => (
         <div
           key={tag.id}
-          className="DraggableTags-tag"
+          className={`DraggableTags-tag ${tag.undraggable ? 'undraggable' : ''}`}
           ref={(target) => {
             this.tagEles[tag.id] = target;
           }}

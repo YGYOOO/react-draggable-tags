@@ -10,12 +10,24 @@ import mock from './mock.js';
 export default class AddAndDelete extends Component {
   constructor() {
     super();
+    this.state = {
+      tags: mock.tags
+    };
+
     this.handleClickAdd = this.handleClickAdd.bind(this);
   }
 
   handleClickAdd() {
-    this.addTag({id: this.input.value , name: this.input.value});
+    if (this.input.value.length < 1) return;
+    const tags = this.state.tags.slice();
+    tags.push({id: Math.random() , content: this.input.value});
+    this.setState({tags});
     this.input.value = '';
+  }
+
+  handleClickDelete(tag) {
+    const tags = this.state.tags.filter(t => tag.id !== t.id);
+    this.setState({tags});
   }
 
   render() {
@@ -23,20 +35,19 @@ export default class AddAndDelete extends Component {
       <div className="AddAndDelete">
         <div className="main">
           <DraggableArea
-            initialTags={mock.tags}
-            render={({tag, deleteThis}) => (
+            tags={this.state.tags}
+            render={({tag}) => (
               <div className="tag">
                 <img
                   className="delete"
                   src={deleteBtn}
                   srcSet={`${deleteBtn2x} 2x`}  
-                  onClick={deleteThis}
+                  onClick={() => this.handleClickDelete(tag)}
                 />
-                {tag.name}
+                {tag.content}
               </div>
             )}
-            getAddTagFunc={addTag => this.addTag = addTag}
-            onChange={(tags) => console.log(tags)}
+            onChange={tags => this.setState({tags})}
           />
         </div>
         <div className="inputs">

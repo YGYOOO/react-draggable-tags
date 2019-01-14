@@ -7,7 +7,7 @@
 //   <h1>Hello, world!</h1>,
 //   document.getElementById('root')
 // );
-
+import React from 'react';
 
 import buildDraggableArea from './DraggableAreaBuilder';
 import DraggableAreasGroup from './DraggableAreasGroup';

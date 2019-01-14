@@ -13,35 +13,49 @@ const DraggableArea1 = group.addArea();
 const DraggableArea2 = group.addArea();
 
 export default class CrossArea extends Component {
+  constructor() {
+    super();
+    this.state = {
+      leftTags: mock.leftTags,
+      rightTags: mock.rightTags
+    }
+  }
+
+  handleClickDelete(tag) {
+    const rightTags = this.state.rightTags.filter(t => tag.id !== t.id);
+    this.setState({rightTags});
+  }
+
+
   render() {
     return (
       <div className="CrossArea">
         <div className="square left">
           <DraggableArea1
-            initialTags={mock.leftTags}
-            render={({tag, deleteThis}) => (
+            tags={this.state.leftTags}
+            render={({tag}) => (
               <div className="tag">
-                {tag.name}
+                {tag.content}
               </div>
             )}
-            onChange={(tags) => console.log(tags)}
+            onChange={leftTags => this.setState({leftTags})}
           />
         </div>
         <div className="square right">
           <DraggableArea2
-            initialTags={mock.rightTags}
-            render={({tag, deleteThis}) => (
+            tags={this.state.rightTags}
+            render={({tag}) => (
               <div className="tag">
                 <img
                   className="delete"
                   src={deleteBtn}
                   srcSet={`${deleteBtn2x} 2x`}
-                  onClick={deleteThis}
+                  onClick={() => this.handleClickDelete(tag)}
                 />
-                {tag.name}
+                {tag.content}
               </div>
             )}
-            onChange={(tags) => console.log(tags)}
+            onChange={rightTags => this.setState({rightTags})}
           />
         </div>
       </div>
