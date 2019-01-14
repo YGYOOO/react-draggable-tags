@@ -56,7 +56,7 @@ const initialTags = [
 {`<div className="Simple">
   <DraggableArea
     tags={initialTags}
-    render={({tag}) => (
+    render={({tag, index}) => (
       <div className="tag">
         {tag.content}
       </div>
@@ -98,7 +98,7 @@ const initialTags = [
   <div className="main">
     <DraggableArea
       tags={this.state.tags}
-      render={({tag}) => (
+      render={({tag, index}) => (
         <div className="tag">
           <img
             className="delete"

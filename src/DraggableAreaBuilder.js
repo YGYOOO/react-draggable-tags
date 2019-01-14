@@ -319,7 +319,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
     render() {
       let {render, build, style, className, isList, tagMargin = '5px', tagStyle} = this.props;
       if (!render) render = build;
-      const tags = this.state.tags.toJS().map((tag) => (
+      const tags = this.state.tags.toJS().map((tag, index) => (
         <div
           key={tag.id}
           className={`DraggableTags-tag ${tag.undraggable ? 'undraggable' : ''}`}
@@ -332,10 +332,10 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
             className="DraggableTags-tag-drag"
             ref={(target) => this.draggableTagEles[tag.id] = target}
           >
-            {render({tag, deleteThis: this.buildDeleteTagFunc(tag)})}
+            {render({tag, index, deleteThis: this.buildDeleteTagFunc(tag)})}
           </div>
           <div style={{opacity: 0, overflow: 'hidden'}}>
-            {render({tag, deleteThis: this.buildDeleteTagFunc(tag)})}
+            {render({tag, index, deleteThis: this.buildDeleteTagFunc(tag)})}
           </div>
         </div>
       ))

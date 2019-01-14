@@ -36,7 +36,7 @@ export default class AddAndDelete extends Component {
         <div className="main">
           <DraggableArea
             tags={this.state.tags}
-            render={({tag}) => (
+            render={({tag, index}) => console.log(index) || (
               <div className="tag">
                 <img
                   className="delete"
