@@ -7,6 +7,7 @@ import { prism } from 'react-syntax-highlighter/dist/styles/prism';
 import Simple from './Simple';
 import AddAndDelete from './AddAndDelete';
 import CrossArea from './CrossArea';
+import CrossAreaRestriction from './CrossArea-restriction';
 import List from './List';
 import NestedTags from './NestedTags';
 import ControlledTags from './ControlledTags';
@@ -40,7 +41,7 @@ class Main extends Component {
             Simple Usage:
           </h3>
           <div className="des">
-            You need to pass an "tags" array and a "render" function to DraggableArea. Each tag should have a unique id.<br/>
+            You need to pass an "tags" array and a "render" function to DraggableArea. Each tag should have a unique id.
             (React Draggable Tags do not have default styles, you could write any style for the tags as you want)
           </div>
           <Simple />
@@ -182,6 +183,64 @@ const DraggableArea2 = group.addArea();`}
 }`}
           </SyntaxHighlighter>
           <a href="https://github.com/YGYOOO/react-draggable-tags/tree/master/example/CrossArea">
+            View code on Github
+          </a>
+
+
+
+          <h3 className="section-title">
+            Cross-Area Drag with Restrictions:
+          </h3>
+          <div className="des">
+            For the following example, you can only drag tags from the left area to the right area.
+          </div>
+          <CrossAreaRestriction />
+          <SyntaxHighlighter language="jsx" style={prism}>
+{`import {DraggableAreasGroup} from 'react-draggable-tags';
+
+const group = new DraggableAreasGroup();
+const DraggableArea1 = group.addArea('area1');
+const DraggableArea2 = group.addArea('area2');`}
+          </SyntaxHighlighter>
+          <SyntaxHighlighter language="jsx" style={prism}>
+{`<div className="square">
+  <DraggableArea1
+    tags={this.state.leftTags}
+    render={({tag}) => (
+   <div className="tag">
+         {tag.content}
+       </div>
+  )}
+    onChange={(leftTags, {fromArea, toArea}) => {
+    console.log(fromArea); // {id: "area2", tag: {…}}
+    if (fromArea.id === 'area2') {
+      this.setState({leftTags: this.state.leftTags});
+    } else {
+      this.setState({leftTags});
+    }
+  }}
+  />
+</div>
+....
+<div className="square">
+  <DraggableArea2
+    tags={this.state.rightTags}
+    render={({tag}) => (
+   <div className="tag">
+         {tag.content}
+      </div>
+  )}
+    onChange={(rightTags, {fromArea, toArea}) => {
+    if (toArea.id === 'area1') {
+      this.setState({rightTags: this.state.rightTags});
+    } else {
+      this.setState({rightTags});
+    }
+  }}
+  />
+</div>`}
+          </SyntaxHighlighter>
+          <a href="https://github.com/YGYOOO/react-draggable-tags/tree/master/example/CrossArea-restriction">
             View code on Github
           </a>
 

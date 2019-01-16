@@ -1,0 +1,63 @@
+.CrossArea-restriction{
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+  .square {
+    border: 1px solid #E9E9E9;
+    border-radius: 4px;
+    width: 294px;
+    height: 220px;
+    padding: 5px;
+    float: left;
+    margin-right: 10px;
+    .tag {
+      position: relative;
+      margin: 3px;
+      font-size: 13px;
+      border: 1px dashed #cccccc;
+      border-radius: 4px;
+      padding: 0 8px;
+      line-height: 30px;
+      color: #666666;
+      background: rgba(255, 255, 255, 0.7);
+    }
+  }
+  .CTags {
+    margin-top: 10px;
+  }
+  .middle {
+    float: left;
+    .arrow-right {
+      position: relative;
+      top: 30px;
+      color: rgb(180, 180, 180);
+      > div {
+        font-size: 90px;
+        transform: scaleY(.6);
+      }
+      > svg {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+    .arrow-left {
+      position: relative;
+      bottom: 30px;
+      color: rgb(180, 180, 180);
+      > div {
+        font-size: 90px;
+        transform: scaleY(.6) translateX(-5%);
+      }
+      > svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+}

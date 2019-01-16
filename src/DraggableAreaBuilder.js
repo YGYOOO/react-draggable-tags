@@ -35,14 +35,21 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
   
     componentWillReceiveProps({tags}) {
       if (!tags) return;
-
-      if ((tags.length !== this.props.tags.length || tags.some((tag, i) => !this.state.tags.get(i) || tag.id !== this.state.tags.get(i).id)) && !this.forbitSetTagsState) {
+      if ((
+          tags.length !== this.props.tags.length ||
+          tags.length !== this.props.tags ||
+          tags.length !== this.state.tags.size ||
+          tags.some((tag, i) => !this.state.tags.get(i) || tag.id !== this.state.tags.get(i).id)
+        ) && !this.forbitSetTagsState
+      ) {
         this.setTags(List(tags));
       }
     }
 
     componentDidUpdate(prevProps, {tags}) {
-      this.tagChanged = this.tagChanged || this.state.tags.some((tag, i) => !tags.get(i) || tag.id !== tags.get(i).id);
+      this.tagChanged = this.tagChanged ||
+        tags.size !== this.state.tags.size ||
+        this.state.tags.some((tag, i) => !tags.get(i) || tag.id !== tags.get(i).id);
     }
   
     dragElement(elmnt, id, parent) {
@@ -255,10 +262,17 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
         let y = eRect.top + eRect.height / 2;
         if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
           this.forbitSetTagsState = true;
-          if (isInAnotherArea(elmnt.getBoundingClientRect(), this.state.tags.get(index))) {
+          const result = isInAnotherArea(elmnt.getBoundingClientRect(), this.state.tags.get(index));
+          if (result.isIn) {
             this.positions.splice(index, 1);
+            const tagDraggedOut = this.state.tags.get(index);
             this.setState({tags: this.state.tags.splice(index, 1)}, () => {
-              this.props.onChange && this.props.onChange(this.state.tags.toJS());
+              this.props.onChange && this.props.onChange(this.state.tags.toJS(), this.buildOnChangeObj({
+                toArea: {
+                  id: result.id,
+                  tag: tagDraggedOut
+                }
+              }));
               this.forbitSetTagsState = false;
             });
             return;
@@ -271,7 +285,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
         elmnt.style.zIndex = 1;
         if (this.tagChanged  && this.props.onChange) {
           this.tagChanged  = false;
-          this.props.onChange(this.state.tags.toJS());
+          this.props.onChange(this.state.tags.toJS(), this.buildOnChangeObj());
         }
       }
   
@@ -300,9 +314,14 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       });
     }
 
-    addTag(tag) {
+    addTag(tag, fromAreaId) {
       this.setTags(this.state.tags.push(tag), () => {
-        this.props.onChange && this.props.onChange(this.state.tags.toJS());
+        this.props.onChange && this.props.onChange(this.state.tags.toJS(), this.buildOnChangeObj({
+          fromArea: {
+            id: fromAreaId,
+            tag,
+          }
+        }));
       });
     }
 
@@ -310,9 +329,16 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       return () => {
         const tags = this.state.tags.filter(t => tag.id !== t.id);
         this.setTags(tags, () => {
-          this.props.onChange && this.props.onChange(this.state.tags.toJS());
+          this.props.onChange && this.props.onChange(this.state.tags.toJS(), this.buildOnChangeObj());
         });
       }
+    }
+
+    buildOnChangeObj({fromArea = {}, toArea = {}} = {}) {
+      return {
+        fromArea,
+        toArea
+      };
     }
 
   
@@ -322,7 +348,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       const tags = this.state.tags.toJS().map((tag, index) => (
         <div
           key={tag.id}
-          className={`DraggableTags-tag ${tag.undraggable ? 'undraggable' : ''}`}
+          className={`DraggableTags-tag ${tag.undraggable ? 'DraggableTags-undraggable' : ''}`}
           ref={(target) => {
             this.tagEles[tag.id] = target;
           }}
