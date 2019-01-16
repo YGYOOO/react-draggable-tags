@@ -37,7 +37,7 @@ class Main extends Component {
 {`npm install react-draggable-tags --save`}
           </SyntaxHighlighter>
 
-          <h3 className="section-title">
+          <h3 className="section-title" id="Simple">
             Simple Usage:
           </h3>
           <div className="des">
@@ -90,7 +90,7 @@ const initialTags = [
           </a>
 
 
-          <h3 className="section-title">
+          <h3 className="section-title" id="AddAddDelete">
             Add Add Delete:
           </h3>
           <AddAndDelete />
@@ -136,7 +136,7 @@ handleClickDelete(tag) {
           </a>
 
 
-          <h3 className="section-title">
+          <h3 className="section-title" id="CrossAreaDrag">
             Cross-Area Drag:
           </h3>
           <CrossArea />
@@ -188,7 +188,7 @@ const DraggableArea2 = group.addArea();`}
 
 
 
-          <h3 className="section-title">
+          <h3 className="section-title" id="CrossAreaRestriction">
             Cross-Area Drag with Restrictions:
           </h3>
           <div className="des">
@@ -245,7 +245,7 @@ const DraggableArea2 = group.addArea('area2');`}
           </a>
 
 
-          <h3 className="section-title">
+          <h3 className="section-title" id="List">
             Draggable List:
           </h3>
           <List />
@@ -284,7 +284,7 @@ handleClickDelete(tag) {
           </a>
 
 
-          <h3 className="section-title">
+          <h3 className="section-title" id="NestedTags">
             Nested Tags:
           </h3>
           <div className="des">
