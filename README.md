@@ -14,6 +14,9 @@ import {DraggableArea} from 'react-draggable-tags';
 ## Documentation and Demo
 https://ygyooo.github.io/react-draggable-tags
 
+## Demo Code
+https://github.com/YGYOOO/react-draggable-tags/tree/master/example
+
 ## Screenshots
 <img src="https://github.com/YGYOOO/react-draggable-tags/raw/master/imgs/AddAddDelete.gif" width="270">
 <img src="https://github.com/YGYOOO/react-draggable-tags/raw/master/imgs/CrossAreaDrag.gif" width="540">
