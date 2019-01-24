@@ -1,5 +1,5 @@
 # react-draggable-tags
-An easy, flexible and lightweight(13kb) tag component. You can use it in many senarios if you want this kind of "drag and drop" feature.
+An easy, flexible and lightweight(16kb) tag component. You can use it in many senarios if you want this kind of "drag and drop" feature.
 It also works on mobile now :)
 
 ## Installation
