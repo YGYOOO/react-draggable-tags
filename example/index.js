@@ -58,7 +58,7 @@ const initialTags = [
   <DraggableArea
     tags={initialTags}
     render={({tag, index}) => (
-      <div className="tag">
+      <div className={`tag ${tag.undraggable ? 'undraggable' : ''}`}>
         {tag.content}
       </div>
     )}
