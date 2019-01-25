@@ -58,7 +58,7 @@ const initialTags = [
   <DraggableArea
     tags={initialTags}
     render={({tag, index}) => (
-      <div className={`tag ${tag.undraggable ? 'undraggable' : ''}`}>
+      <div className={\`tag \${tag.undraggable ? 'undraggable' : ''}\`}>
         {tag.content}
       </div>
     )}
@@ -83,6 +83,9 @@ const initialTags = [
   line-height: 30px;
   color: #666666;
   background: rgba(255, 255, 255, 0.7);
+}
+.undraggable {
+  background-color: rgb(243, 243, 243);
 }`}
           </SyntaxHighlighter>
           <a href="https://github.com/YGYOOO/react-draggable-tags/tree/master/example/simple">
