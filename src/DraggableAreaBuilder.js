@@ -263,7 +263,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
         if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
           this.forbitSetTagsState = true;
           const result = isInAnotherArea(elmnt.getBoundingClientRect(), this.state.tags.get(index));
-          if (result.isIn) {
+          if (result && result.isIn) {
             this.positions.splice(index, 1);
             const tagDraggedOut = this.state.tags.get(index);
             this.setState({tags: this.state.tags.splice(index, 1)}, () => {
