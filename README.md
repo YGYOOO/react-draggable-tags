@@ -5,8 +5,8 @@
 
 # react-draggable-tags
 [![Version](https://img.shields.io/badge/npm-v0.3.5-blue.svg?logo=npm)](https://www.npmjs.com/package/react-draggable-tags)
-[![Downloads](https://img.shields.io/badge/downloads-800%2Fmonth-blue.svg?logo=npm)](https://www.npmjs.com/package/react-draggable-tags)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Downloads](https://img.shields.io/npm/v/react-draggable-tags.svg?logo=npm)](https://www.npmjs.com/package/react-draggable-tags)
+[![License](https://img.shields.io/github/license/YGYOOO/react-draggable-tags.svg)](LICENSE)
 
 
 An easy, flexible and lightweight(16kb) tag component. You can use it in many senarios if you want this kind of "drag and drop" feature.
