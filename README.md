@@ -1,4 +1,8 @@
 # react-draggable-tags
+[![Software License][ico-license]](LICENSE.md)
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![Total Downloads][ico-downloads]][link-downloads]
+
 An easy, flexible and lightweight(16kb) tag component. You can use it in many senarios if you want this kind of "drag and drop" feature.
 It also works on mobile now :)
 
