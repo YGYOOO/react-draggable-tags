@@ -5,9 +5,8 @@
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-green.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 [![](https://img.shields.io/badge/Weibo-%40YGY%E7%9A%84%E5%B0%8F%E5%8F%B7-red.svg?logo=Sina%20Weibo)](https://weibo.com/u/5352731024)       
 
-![](https://img.shields.io/github/stars/YGYOOO/react-draggable-tags.svg?style=social)
 [![](https://img.shields.io/github/followers/YGYOOO.svg?label=Follow&style=social)](https://github.com/YGYOOO)
-[![](https://img.shields.io/badge/@YGY的小号--brightgreen.svg?logo=Sina%20Weibo&style=social)](https://weibo.com/u/5352731024)
+[![](https://img.shields.io/badge/Follow%20@YGY的小号--brightgreen.svg?logo=Sina%20Weibo&style=social)](https://weibo.com/u/5352731024)
 [![](https://img.shields.io/badge/Follow%20@YGYOOO--brightgreen.svg?logo=Twitter&style=social)](https://twitter.com/YGYOOO)
 
 
