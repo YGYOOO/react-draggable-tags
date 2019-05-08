@@ -1,6 +1,8 @@
 # react-draggable-tags
-[![License](http://img.shields.io/:license-MIT-blue.svg?style=flat)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![Version](https://img.shields.io/badge/npm-v0.3.5-red.svg)](https://www.npmjs.com/package/react-draggable-tags)
+[![Downloads](https://img.shields.io/badge/downloads-800%2Fmonth-9cf.svg)](https://www.npmjs.com/package/react-draggable-tags)
 
 An easy, flexible and lightweight(16kb) tag component. You can use it in many senarios if you want this kind of "drag and drop" feature.
 It also works on mobile now :)
