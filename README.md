@@ -1,8 +1,8 @@
 # react-draggable-tags
-[![Version](https://img.shields.io/badge/npm-v0.3.5-red.svg)](https://www.npmjs.com/package/react-draggable-tags)
-[![Downloads](https://img.shields.io/badge/downloads-800%2Fmonth-orange.svg)](https://www.npmjs.com/package/react-draggable-tags)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![Version](https://img.shields.io/badge/npm-v0.3.5-blue.svg?logo=npm)](https://www.npmjs.com/package/react-draggable-tags)
+[![Downloads](https://img.shields.io/badge/downloads-800%2Fmonth-blue.svg)](https://www.npmjs.com/package/react-draggable-tags)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-green.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 [![](https://img.shields.io/badge/Weibo-%40YGY%E7%9A%84%E5%B0%8F%E5%8F%B7-red.svg?logo=Sina%20Weibo)](https://weibo.com/u/5352731024)
 
 
