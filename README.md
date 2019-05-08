@@ -3,7 +3,7 @@
 [![Downloads](https://img.shields.io/badge/downloads-800%2Fmonth-9cf.svg)](https://www.npmjs.com/package/react-draggable-tags)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
-[![](https://img.shields.io/badge/weibo-@EyreFree-red.svg)](https://weibo.com/u/5352731024)
+[![](https://img.shields.io/badge/Weibo-%40YGY%E7%9A%84%E5%B0%8F%E5%8F%B7-red.svg)](https://weibo.com/u/5352731024)
 
 An easy, flexible and lightweight(16kb) tag component. You can use it in many senarios if you want this kind of "drag and drop" feature.
 It also works on mobile now :)
