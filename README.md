@@ -8,7 +8,7 @@
 [![](https://img.shields.io/badge/Follow%20@YGYOOO--brightgreen.svg?logo=Twitter&style=social)](https://twitter.com/YGYOOO)
 
 
-An easy, flexible and lightweight(16kb) tag component. It may be useful if you want some kind of "drag and drop" features.
+An easy, flexible and lightweight(16kb) tag component. It would be useful if you want some kind of "drag and drop" features.
 It also works on mobile now :)
 
 ## Installation
