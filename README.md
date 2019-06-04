@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/github/license/YGYOOO/react-draggable-tags.svg)](LICENSE)   
 
 [![](https://img.shields.io/github/followers/YGYOOO.svg?label=Follow&style=social)](https://github.com/YGYOOO)
-[![](https://img.shields.io/badge/Follow%20@YGY的小号--brightgreen.svg?logo=Sina%20Weibo&style=social)](https://weibo.com/u/5352731024)
+[![](https://img.shields.io/badge/Follow%20@卧槽竟然是YGY的微博--brightgreen.svg?logo=Sina%20Weibo&style=social)](https://weibo.com/u/5352731024)
 [![](https://img.shields.io/badge/Follow%20@YGYOOO--brightgreen.svg?logo=Twitter&style=social)](https://twitter.com/YGYOOO)
 
 
