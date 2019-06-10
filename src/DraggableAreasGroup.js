@@ -17,20 +17,22 @@ export default class DraggableTagsGroup {
 
         let result = {isIn: false};
         this.isInAreas.forEach(isInArea => {
-          const r = isInArea(tag, x, y, areaId);
+          const r = isInArea({tag, x, y, areaId});
           if (r.isIn) {
             result = r;
           }
         });
 
+        console.log(result)
+
         return result
       },
       passAddFunc: (ele, addTag) => {
-        this.isInAreas.push(function(tag, x, y, fromAreaId) {
+        this.isInAreas.push(function({tag, x, y, areaId: fromAreaId}) {
 
           const rect = ele.getBoundingClientRect();
           if (x > rect.left && x < rect.right && y > rect.top && y < rect.bottom) {
-            addTag(tag, fromAreaId);
+            addTag({tag, fromAreaId, x, y});
             return {
               isIn: true,
               id: areaId

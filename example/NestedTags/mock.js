@@ -2,27 +2,34 @@ import React from 'react';
 import Tag from './Tag';
 
 export default {
-  leftTags: [{
-    id: '1',
-    content: <Tag />,
+  topTags: [{
+    content: 'apple',
   },{
-    id: '2',
-    content: <Tag />,
+    content: 'banana',
   },{
-    id: '3',
-    content: <Tag />,
+    content: 'lemon',
   },{
-    id: '4',
-    content: <Tag />,
+    content: 'orange',
+  },{
+    content: 'grape',
+  },{
+    content: 'strawberry',
+  },{
+    content: 'cherry',
   }],
-  rightTags: [{
-    id: '10',
-    content: <Tag />,
+  bottomTags: [{
+    content: 'tomato',
   },{
-    id: '11',
-    content: <Tag />,
+    content: 'mushroom',
   },{
-    id: '12',
-    content: <Tag />,
+    content: 'pea',
+  },{
+    content: 'carrot',
+  },{
+    content: 'cabbage',
+  },{
+    content: 'melon',
+  },{
+    content: 'celery',
   }],
 }

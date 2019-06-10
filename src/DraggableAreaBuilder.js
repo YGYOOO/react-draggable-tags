@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from "react-dom";
-import { fromJS, List, is } from 'immutable';
+import { List } from 'immutable';
 
 import styles from './style.less';
 
@@ -37,7 +36,6 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       if (!tags) return;
       if ((
           tags.length !== this.props.tags.length ||
-          tags.length !== this.props.tags ||
           tags.length !== this.state.tags.size ||
           tags.some((tag, i) => !this.state.tags.get(i) || tag.id !== this.state.tags.get(i).id)
         ) && !this.forbitSetTagsState
@@ -107,9 +105,8 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
         let l = elmnt.offsetLeft + movedX;
         elmnt.style.top = t + "px";
         elmnt.style.left = l + "px";
-
         
-        let baseCenterTop= parent.offsetTop + elmnt.offsetHeight / 2;
+        let baseCenterTop = parent.offsetTop + elmnt.offsetHeight / 2;
         let baseCenterLeft = parent.offsetLeft + elmnt.offsetWidth / 2;
         // The center position of the tag
         let ctop = baseCenterTop + t;
@@ -173,8 +170,8 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
               // Is "list view"
               if (
                 // Between two tags
-                ctop < p1.bottom + 6 &&
-                ctop > p2.top - 6
+                ctop > p1.bottom - 4 &&
+                ctop < p2.top + 4
               ) between2Tags = true;
 
               if (
@@ -223,6 +220,8 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
                     left: tag.offsetLeft,
                     bottom: tag.offsetTop + tag.offsetHeight,
                     right: tag.offsetLeft + tag.offsetWidth,
+                    width: tag.offsetWidth,
+                    height: tag.offsetHeight,
                   });
                 });
   
@@ -306,6 +305,8 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
             left: tag.offsetLeft,
             bottom: tag.offsetTop + tag.offsetHeight,
             right: tag.offsetLeft + tag.offsetWidth,
+            width: tag.offsetWidth,
+            height: tag.offsetHeight,
           });
           if (!t.undraggable) {
             this.dragElement(draggableTag, t.id, tag);
@@ -314,8 +315,113 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       });
     }
 
-    addTag(tag, fromAreaId) {
-      this.setTags(this.state.tags.push(tag), () => {
+    addTag({tag, fromAreaId, x, y}) {
+      const rect = this.container.getBoundingClientRect();
+      // The center position of the tag
+      let ctop = y - rect.top;
+      let cleft = x - rect.left;
+      let i; // safari 10 bug
+
+      let isHead = false;
+      let isTail = false;
+      let between2Tags = false;
+      let endOfLine = false;
+      let startOfLine = false;
+
+      // Check if the tag could be put into a new position
+      for (i = 0; i < this.positions.length - 1; i++) {
+        // Do not check its left-side space and right-side space
+        const p1 = this.positions[i];
+        const p1Ctop = p1.top + p1.height / 2;
+        const p1Cleft = p1.left + p1.width / 2;
+        const p2 = this.positions[i+1];
+        const p2Ctop = p2.top + p2.height / 2;
+        const p2Cleft = p2.left + p2.width / 2;
+
+        isHead = false;
+        isTail = false;
+        between2Tags = false;
+        endOfLine = false;
+        startOfLine = false;
+
+        if (!this.props.isList) {
+          // Is not "list view"
+          if (
+            // Head of tag list
+            i === 0 &&
+            ctop > p1.top &&
+            ctop < p1.bottom &&
+            cleft < p1Cleft
+          ) isHead = true;
+
+      
+          if (
+            // Between two tags
+            ctop > p1.top &&
+            ctop < p1.bottom &&
+            cleft > p1Cleft &&
+            cleft < p2Cleft
+          ) between2Tags = true;
+
+          if (
+            // Start of line
+            ctop > p2.top &&
+            ctop < p2.bottom &&
+            cleft < p2Cleft &&
+            p1.top < p2.top
+          ) startOfLine = true;
+
+          if (
+            // End of line
+            ctop > p1.top &&
+            ctop < p1.bottom &&
+            cleft > p1Cleft &&
+            p1.top < p2.top
+          ) endOfLine = true;
+
+          if (
+            // Tail of tag list
+            i === this.positions.length - 2 && 
+            !(isHead || between2Tags || startOfLine || endOfLine)
+          ) isTail = true;
+
+          if (isHead || isTail || between2Tags || startOfLine || endOfLine) break;
+
+        } else {
+          // Is "list view"
+          if (
+            // Between two tags
+            ctop > p1Ctop &&
+            ctop < p2Ctop
+          ) between2Tags = true;
+
+          if (
+            // Head of tag list
+            i === 0 &&
+            ctop < p1Ctop
+          ) isHead = true;
+
+          if (
+            // Tail of tag list
+            i === this.positions.length - 2 &&
+            !(between2Tags || isHead)
+          ) isTail = true;
+
+          if (isHead || isTail || between2Tags) break;
+        }
+      }
+
+      let tags = this.state.tags;
+      if (isTail) {
+        tags = tags.push(tag);
+      } else if (isHead) {
+        tags = tags.unshift(tag);
+      } else {
+        tags = tags.splice(i+1, 0, tag); 
+      }
+      this.positions = [];
+
+      this.setState({tags}, () => {
         this.props.onChange && this.props.onChange(this.state.tags.toJS(), this.buildOnChangeObj({
           fromArea: {
             id: fromAreaId,

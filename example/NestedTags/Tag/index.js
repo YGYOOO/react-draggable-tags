@@ -6,24 +6,19 @@ import deleteBtn2x from '../../imgs/delete@2x.png';
 
 import styles from './style.less';
 
-import mock from './mock.js';
 
 const group = new DraggableAreasGroup();
 const DraggableArea1 = group.addArea();
 const DraggableArea2 = group.addArea();
 
-const getRandomTags = function(tags) {
-  return tags.sort((a,b) => Math.random() - 0.5) //random sort
-  .slice(0, 1 + Math.floor(Math.random() * 3)); // random slice
-}
 
 export default class Tag extends Component {
-  constructor() {
+  constructor({topTags, bottomTags}) {
     super();
 
     this.state = {
-      topTags: getRandomTags(mock.leftTags).map(tag => ({id: Math.random(), content: tag.content})),
-      bottomTags: getRandomTags(mock.rightTags).map(tag => ({id: Math.random(), content: tag.content})),
+      topTags,
+      bottomTags,
     };
   }
 
