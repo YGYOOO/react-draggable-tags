@@ -1,6 +1,6 @@
 {
   "name": "react-draggable-tags",
-  "version": "0.4.0-beta.1",
+  "version": "0.4.0-beta.2",
   "main": "lib/bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,7 +18,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/NSFI/ppfish-components.git"
+    "url": "https://github.com/YGYOOO/react-draggable-tags"
+  },
+  "homepage": "https://ygyooo.github.io/react-draggable-tags/",
+  "bugs": {
+    "url": "https://github.com/YGYOOO/react-draggable-tags/issues"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -50,7 +54,10 @@
     "tag",
     "draggable",
     "drag",
-    "react"
+    "react",
+    "react draggable",
+    "draggable tag",
+    "react draggable tag"
   ],
   "description": "",
   "files": [
