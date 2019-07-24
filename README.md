@@ -9,7 +9,8 @@
 
 
 A flexible and lightweight(16kb) tag component. It would be useful if you want some kind of "drag and drop" features.
-It also works on mobile now :)
+It also works on mobile now :)    
+
 一个轻量级的可拖拽组件。该组件封装了一系列拖拽功能，可以灵活适用，也未提供任何样式，完全由你来控制。
 
 ## Installation
