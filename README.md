@@ -1,5 +1,5 @@
 # react-draggable-tags
-[![Version](https://img.shields.io/npm/v/react-draggable-tags?logo=npm&style=flat-square&color=red)](https://www.npmjs.com/package/react-draggable-tags)
+[![Version](https://img.shields.io/npm/v/react-draggable-tags?logo=npm&style=flat-square&color=blue)](https://www.npmjs.com/package/react-draggable-tags)
 [![Downloads](https://img.shields.io/npm/dm/react-draggable-tags.svg?logo=npm&style=flat-square)](https://www.npmjs.com/package/react-draggable-tags)
 [![License](https://img.shields.io/github/license/YGYOOO/react-draggable-tags.svg?style=flat-square)](LICENSE)   
 
