@@ -8,10 +8,9 @@
 [![](https://img.shields.io/badge/Follow%20@YGYOOO--brightgreen.svg?logo=Twitter&style=social)](https://twitter.com/YGYOOO)
 
 
-A flexible, lightweight(16kb) and easy-to-use tag component. It would be useful if you want the "drag and drop" feature.
-It also works on mobile now :)    
+A flexible, lightweight(<20kb) and easy-to-use draggable component. It also works on mobile now :)    
 
-一个轻量级的可拖拽组件。该组件封装了一系列拖拽功能，可以灵活使用，也未提供任何样式，完全由你来控制。支持移动端。
+一个轻量级的拖拽排序组件。该组件封装了一系列拖拽功能，可以灵活使用，也未提供任何样式，完全由你来控制（不一定是“tag”，你可以放入任意组件来拖拽排序）。支持移动端。
 
 ## Installation
 ```sh
