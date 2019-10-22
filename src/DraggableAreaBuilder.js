@@ -5,8 +5,22 @@ import styles from './style.less';
 
 const isMobile = (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
 
+const hotspotClassName = 'hotspot-9485743';
+const excludedInHotspotClassName = 'excludedInHotspot-9485743';
+
 export default function buildDraggableArea({isInAnotherArea = () => {}, passAddFunc = () => {}} = {}) {
-  return class DraggableArea extends React.Component {
+  const Hotspot = ({children}) => (
+    <div className={hotspotClassName}>
+      {children}
+    </div>
+  );
+  const ExcludedInHotspot = ({children}) => (
+    <div className={excludedInHotspotClassName}>
+      {children}
+    </div>
+  );
+
+  class DraggableArea extends React.Component {
     constructor() {
       super();
       this.state = {
@@ -19,6 +33,8 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       this.rect = {};
       this.dragStart = {};
       this.tagChanged = false;
+
+      this.tagsElesWhichBindedDrag = new WeakSet();
     }
 
     componentDidMount() {
@@ -61,6 +77,13 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       });
     
       const dragStart = (e) => {
+        if (this.props.withHotspot) {
+          const closestHotspot = e.target.closest(`.${hotspotClassName}`);
+          const closestExcludedInHotspot = e.target.closest(`.${excludedInHotspotClassName}`);
+
+          if (!closestHotspot) return;
+          if (closestHotspot.contains(closestExcludedInHotspot)) return;
+        }
         // e.preventDefault();
         this.tagChanged = false;
 
@@ -288,6 +311,9 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
         }
       }
   
+      elmnt.removeEventListener("mousedown", dragStart);
+      elmnt.removeEventListener("touchstart", dragStart);
+
       elmnt.addEventListener("mousedown", dragStart, false);
       elmnt.addEventListener("touchstart", dragStart, false);
     }
@@ -309,6 +335,8 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
             height: tag.offsetHeight,
           });
           if (!t.undraggable) {
+            if (this.tagsElesWhichBindedDrag.has(draggableTag)) return;
+            this.tagsElesWhichBindedDrag.add(draggableTag);
             this.dragElement(draggableTag, t.id, tag);
           }
         });
@@ -449,12 +477,12 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
 
   
     render() {
-      let {render, build, style, className, isList, tagMargin = '5px', tagStyle} = this.props;
+      let {render, build, style, className, isList, tagMargin = '5px', tagStyle, withHotspot} = this.props;
       if (!render) render = build;
       const tags = this.state.tags.toJS().map((tag, index) => (
         <div
           key={tag.id}
-          className={`DraggableTags-tag ${tag.undraggable ? 'DraggableTags-undraggable' : ''}`}
+          className={`DraggableTags-tag ${tag.undraggable ? 'DraggableTags-undraggable' : ''} ${!withHotspot ? hotspotClassName : ''}`}
           ref={(target) => {
             this.tagEles[tag.id] = target;
           }}
@@ -485,4 +513,9 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       );
     }
   }
+
+  DraggableArea.Hotspot = Hotspot;
+  DraggableArea.ExcludedInHotspot = ExcludedInHotspot;
+
+  return DraggableArea;
 } 

@@ -5,6 +5,7 @@ import { prism } from 'react-syntax-highlighter/dist/styles/prism';
 
 
 import Simple from './Simple';
+import Customized from './Customized';
 import AddAndDelete from './AddAndDelete';
 import CrossArea from './CrossArea';
 import CrossAreaRestriction from './CrossArea-restriction';
@@ -49,16 +50,17 @@ class Main extends Component {
 {`import {DraggableArea} from 'react-draggable-tags';
 
 const initialTags = [
-  {id: 1, content: 'apple'}, {id: 2, content: 'undraggable', undraggable: true}, {id: 3, content: 'banana'},
+  {id: 1, content: 'apple'}, {id: 2, content: 'olive'}, {id: 3, content: 'banana'},
   {id: 4,  content: 'lemon'}, {id: 5, content: 'orange'}, {id: 6, content: 'grape'},
-  {id: 7, content: 'strawberry'}, {id: 8, content: 'cherry'}, {id: 9, content: 'peach'}];`}
+  {id: 7, content: 'strawberry'}, {id: 8, content: 'cherry'}, {id: 9, content: 'peach'}
+];`}
           </SyntaxHighlighter>
           <SyntaxHighlighter language="jsx" style={prism}>
 {`<div className="Simple">
   <DraggableArea
     tags={initialTags}
     render={({tag, index}) => (
-      <div className={\`tag \${tag.undraggable ? 'undraggable' : ''}\`}>
+      <div className="tag">
         {tag.content}
       </div>
     )}
@@ -83,9 +85,48 @@ const initialTags = [
   line-height: 30px;
   color: #666666;
   background: rgba(255, 255, 255, 0.7);
+}`}
+          </SyntaxHighlighter>
+          <a href="https://github.com/YGYOOO/react-draggable-tags/tree/master/example/simple">
+            View code on Github
+          </a>
+
+
+          <h3 className="section-title" id="HighlyCustomized">
+           Highly Customized:
+          </h3>
+          <Customized />
+          <SyntaxHighlighter language="jsx" style={prism}>
+{`class Fruit extends Component {
+  ...
 }
-.undraggable {
-  background-color: rgb(243, 243, 243);
+const initialTags = [
+  {id: 1, content: <div className="tag">apple</div>}, {id: 2, content: <div className="tag"><input style={{width:50}} /></div>},
+  {id: 3, content: <div className="tag2">banana</div>}, {id: 4,  content: <div className="tag">lemon</div>},
+  {id: 5, content: <Fruit />}, {id: 6, content: <div className="tag">grape</div>}
+];`}
+          </SyntaxHighlighter>
+          <SyntaxHighlighter language="jsx" style={prism}>
+{`<div className="Customized">
+  <DraggableArea
+    tags={initialTags}
+    render={({tag}) => tag.content}
+    onChange={tags => console.log(tags)}
+  />
+</div>`}
+          </SyntaxHighlighter>
+          <SyntaxHighlighter language="css" style={prism}>
+{`.Customized {
+  ...
+}
+.tag {
+  ...
+}
+.tag2 {
+  ...
+}
+.tag3 {
+  ...
 }`}
           </SyntaxHighlighter>
           <a href="https://github.com/YGYOOO/react-draggable-tags/tree/master/example/simple">
