@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "start:dev": "webpack-dev-server"
+    "start": "webpack-dev-server"
   },
   "author": "Yifan Gu",
   "devDependencies": {
@@ -36,9 +36,9 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-draggable-tags": "^0.4.1-beta.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-draggable-tags": "^1.0.0",
     "react-syntax-highlighter": "^10.1.2"
   },
   "keywords": [

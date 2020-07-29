@@ -48,7 +48,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       this.props.getAddTagFunc && this.props.getAddTagFunc(this.addTag.bind(this));
     }
   
-    componentWillReceiveProps({tags}) {
+    UNSAFE_componentWillReceiveProps({tags}) {
       if (!tags) return;
       if ((
           tags.length !== this.props.tags.length ||
@@ -70,6 +70,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       const isList = this.props.isList;
       let prevX = 0, prevY = 0;
       let rect = {};
+      let dragged = false;
 
       let index;
       this.positions.forEach((p, i) => {
@@ -77,6 +78,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       });
     
       const dragStart = (e) => {
+        dragged = false;
         if (this.props.withHotspot) {
           const closestHotspot = e.target.closest(`.${hotspotClassName}`);
           const closestExcludedInHotspot = e.target.closest(`.${excludedInHotspotClassName}`);
@@ -112,6 +114,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       }
 
       const elementDrag = (e) => {
+        dragged = true;
         if (isMobile) this.container.style.overflowY = 'visible';
         // Prevent scrolling on mobile devices
         e.type === 'touchmove' &&  e.preventDefault();
@@ -267,6 +270,14 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       }
   
       const closeDragElement = (e) => {
+        if (dragged) {
+          function captureClick(e) {
+            e.stopPropagation(); 
+            document.removeEventListener('click', captureClick, true);
+          }
+          document.addEventListener('click', captureClick, true); 
+        }
+        
         if (isMobile) this.container.style.overflowY = 'auto';
         
         window.dragMouseDown = false;

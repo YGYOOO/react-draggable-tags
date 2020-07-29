@@ -23,8 +23,6 @@ export default class DraggableTagsGroup {
           }
         });
 
-        console.log(result)
-
         return result
       },
       passAddFunc: (ele, addTag) => {
