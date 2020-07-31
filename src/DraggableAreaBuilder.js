@@ -275,7 +275,10 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
             e.stopPropagation(); 
             document.removeEventListener('click', captureClick, true);
           }
-          document.addEventListener('click', captureClick, true); 
+          document.addEventListener('click', captureClick, true);
+          setTimeout(() => {
+            document.removeEventListener('click', captureClick, true);
+          }, 500); 
         }
         
         if (isMobile) this.container.style.overflowY = 'auto';
