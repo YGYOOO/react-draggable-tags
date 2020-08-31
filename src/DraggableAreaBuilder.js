@@ -251,7 +251,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
                   });
                 });
   
-                // 根据不同情况计算移动后的坐标
+                // Calculate the new position
                 if (curBaseLeft > prevBaseLeft) {
                   elmnt.style.left = `${l - (curBaseLeft - prevBaseLeft)}px`;
                 } else {
