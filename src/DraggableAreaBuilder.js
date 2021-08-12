@@ -69,6 +69,8 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
     dragElement(elmnt, id, parent) {
       const isList = this.props.isList;
       let prevX = 0, prevY = 0;
+      // 记录 dragStart 起始位置，用于判断是否发生了位移
+      let dragStartX = 0, dragStartY = 0;
       let rect = {};
       let dragged = false;
 
@@ -94,8 +96,9 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
 
         rect = this.container.getBoundingClientRect();
         e = e || window.event;
-        prevX = e.clientX || e.touches[0].clientX;
-        prevY = e.clientY || e.touches[0].clientY;
+        // 保存 dragStart 起始位置
+        prevX = dragStartX = e.clientX || e.touches[0].clientX;
+        prevY = dragStartY = e.clientY || e.touches[0].clientY;
         elmnt.style.zIndex = 2;
         window.parentDragTag = elmnt.parentElement;
         while (window.parentDragTag && !window.parentDragTag.classList.contains('DraggableTags-tag-drag')) {
@@ -114,7 +117,6 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       }
 
       const elementDrag = (e) => {
-        dragged = true;
         if (isMobile) this.container.style.overflowY = 'visible';
         // Prevent scrolling on mobile devices
         e.type === 'touchmove' &&  e.preventDefault();
@@ -123,6 +125,14 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
         e = e || window.event;
         let clientX = e.clientX || e.touches[0].clientX;
         let clientY = e.clientY || e.touches[0].clientY;
+
+        // 判断是否真正发生了位移
+        if (clientX === dragStartX && clientY === dragStartY) {
+            dragged = false;
+            return;
+        }
+        dragged = true;
+
         let movedX = clientX - prevX;
         let movedY = clientY - prevY;
         prevX = clientX;
