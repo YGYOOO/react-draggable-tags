@@ -38,7 +38,7 @@
   "dependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-draggable-tags": "^1.0.2",
+    "react-draggable-tags": "^1.0.4",
     "react-syntax-highlighter": "^10.1.2"
   },
   "keywords": [
