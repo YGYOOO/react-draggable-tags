@@ -147,10 +147,21 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
         // The center position of the tag
         let ctop = baseCenterTop + t;
         let cleft = baseCenterLeft + l;
-  
+
+        let eRect = elmnt.getBoundingClientRect();
+        let x = eRect.left + eRect.width / 2;
+        let y = eRect.top + eRect.height / 2;
+        let isInAnother = false;
+        if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+          const { isIn } = isInAnotherArea(eRect, this.state.tags.get(index), false);
+          isInAnother = isIn;
+        }
+
         let i; // safari 10 bug
         // Check if the tag could be put into a new position
         for (i = 0; i < this.positions.length - 1; i++) {
+          if (isInAnother && i !== this.positions.length - 2) continue;
+
           // Do not check its left-side space and right-side space
           if ((index !== i || (index === this.positions.length - 2 && i === this.positions.length - 2)) && !(index - 1 === i && i !== 0)) {
             const p1 = this.positions[i];
@@ -224,6 +235,8 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
             }
 
             if (
+              isInAnother
+              ||
               (!isList && (isHead || isTail || between2Tags || startOfLine || endOfLine))
               ||
               (isList && (isHead || isTail || between2Tags))

@@ -11,13 +11,13 @@ export default class DraggableTagsGroup {
 
   addArea(areaId) {
     return buildDraggableArea({
-      isInAnotherArea: (tagRect, tag) => {
+      isInAnotherArea: (tagRect, tag, shouldAdd = true) => {
         let x = tagRect.left + tagRect.width / 2;
         let y = tagRect.top + tagRect.height / 2;
 
         let result = {isIn: false};
         this.isInAreas.forEach(isInArea => {
-          const r = isInArea({tag, x, y, areaId});
+          const r = isInArea({tag, x, y, areaId}, shouldAdd);
           if (r.isIn) {
             result = r;
           }
@@ -26,11 +26,11 @@ export default class DraggableTagsGroup {
         return result
       },
       passAddFunc: (ele, addTag) => {
-        this.isInAreas.push(function({tag, x, y, areaId: fromAreaId}) {
+        this.isInAreas.push(function({tag, x, y, areaId: fromAreaId}, shouldAdd) {
 
           const rect = ele.getBoundingClientRect();
           if (x > rect.left && x < rect.right && y > rect.top && y < rect.bottom) {
-            addTag({tag, fromAreaId, x, y});
+            shouldAdd && addTag({tag, fromAreaId, x, y});
             return {
               isIn: true,
               id: areaId

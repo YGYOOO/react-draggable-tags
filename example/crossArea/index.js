@@ -9,8 +9,8 @@ import styles from './style.less';
 import mock from './mock.js';
 
 const group = new DraggableAreasGroup();
-const DraggableArea1 = group.addArea();
-const DraggableArea2 = group.addArea();
+const DraggableArea1 = group.addArea('area1');
+const DraggableArea2 = group.addArea('area2');
 
 
 export default class CrossArea extends Component {
