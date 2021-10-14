@@ -8,7 +8,7 @@ const isMobile = (typeof window.orientation !== "undefined") || (navigator.userA
 const hotspotClassName = 'hotspot-9485743';
 const excludedInHotspotClassName = 'excludedInHotspot-9485743';
 
-export default function buildDraggableArea({isInAnotherArea = () => {}, passAddFunc = () => {}} = {}) {
+export default function buildDraggableArea({isInAnotherArea = () => ({}), passAddFunc = () => {}} = {}) {
   const Hotspot = ({children}) => (
     <div className={hotspotClassName}>
       {children}
@@ -47,7 +47,7 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
       passAddFunc(this.container, this.addTag.bind(this));
       this.props.getAddTagFunc && this.props.getAddTagFunc(this.addTag.bind(this));
     }
-  
+
     UNSAFE_componentWillReceiveProps({tags}) {
       if (!tags) return;
       if ((
@@ -123,8 +123,8 @@ export default function buildDraggableArea({isInAnotherArea = () => {}, passAddF
 
         // Figure out the new position of tag
         e = e || window.event;
-        let clientX = e.clientX || e.touches[0].clientX;
-        let clientY = e.clientY || e.touches[0].clientY;
+        let clientX = e.clientX === undefined ? e.touches[0].clientX : e.clientX;
+        let clientY = e.clientY === undefined ? e.touches[0].clientY : e.clientY;
 
         // 判断是否真正发生了位移
         if (clientX === dragStartX && clientY === dragStartY) {
